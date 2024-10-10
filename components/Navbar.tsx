@@ -1,0 +1,136 @@
+"use client";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/pip-calculator", label: "Pip Calculator" },
+  { href: "/psychology-test", label: "Psychology Test" },
+  { href: "/courses", label: "Courses" },
+  { href: "/forex", label: "What is Forex?" },
+  { href: "/auth", label: "Login / Sign Up" },
+];
+
+export default function Navbar() {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const toggleDrawer = () => {
+    setIsDrawerOpen((prev) => !prev);
+  };
+
+  useEffect(() => {
+    if (isDrawerOpen) {
+      document.body.classList.add("overflow-hidden"); // Prevent scrolling
+    } else {
+      document.body.classList.remove("overflow-hidden"); // Allow scrolling
+    }
+
+    // Clean up to remove the class on unmount
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, [isDrawerOpen]);
+
+  const renderLinks = (onClick?: () => void) => {
+    return links.map((link) => (
+      <Link
+        key={link.href}
+        href={link.href}
+        className="text-white hover:text-green-400 transition duration-300"
+        onClick={onClick} // Call onClick if provided (for closing the drawer)
+      >
+        {link.label}
+      </Link>
+    ));
+  };
+
+  return (
+    <>
+      <nav className="bg-glass backdrop-blur-md shadow-lg py-4">
+        <div className="container mx-auto flex justify-between items-center px-4">
+          <div className="text-2xl font-bold text-white">
+            <Link href="/">Robinhood Club</Link>
+          </div>
+          <div className="hidden md:flex space-x-6">{renderLinks()}</div>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
+            <button
+              onClick={toggleDrawer}
+              className="text-white focus:outline-none"
+            >
+              {isDrawerOpen ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  className="w-8 h-8"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  className="w-8 h-8"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              )}
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Drawer Menu */}
+      <div
+        className={`fixed inset-0 z-50 bg-gray-900 bg-opacity-80 transition-opacity duration-300 ease-in-out ${
+          isDrawerOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <div
+          className={`absolute top-0 right-0 w-64 bg-glass backdrop-blur-md h-full p-4 shadow-lg transition-transform duration-500 ease-in-out transform ${
+            isDrawerOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <button
+            onClick={toggleDrawer}
+            className="text-white focus:outline-none mb-4"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              className="w-8 h-8"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+          <div className="flex flex-col space-y-4">
+            {renderLinks(toggleDrawer)}{" "}
+            {/* Pass toggleDrawer to close on link click */}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
