@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const links = [
@@ -13,6 +14,9 @@ const links = [
 
 export default function Navbar() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const path = usePathname()
 
   const toggleDrawer = () => {
     setIsDrawerOpen((prev) => !prev);
@@ -25,28 +29,52 @@ export default function Navbar() {
       document.body.classList.remove("overflow-hidden"); // Allow scrolling
     }
 
-    // Clean up to remove the class on unmount
     return () => {
       document.body.classList.remove("overflow-hidden");
     };
   }, [isDrawerOpen]);
+
+  const handleScroll = () => {
+    if (window.scrollY > lastScrollY && window.scrollY > 100) {
+      setShowNavbar(false);
+    } else {
+      setShowNavbar(true);
+    }
+    setLastScrollY(window.scrollY);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [lastScrollY]);
 
   const renderLinks = (onClick?: () => void) => {
     return links.map((link) => (
       <Link
         key={link.href}
         href={link.href}
-        className="text-white hover:text-green-400 transition duration-300"
-        onClick={onClick} // Call onClick if provided (for closing the drawer)
+        className={`relative ${path === link.href ? "text-green-400" : "text-white"} hover:text-green-400 transition duration-300`}
+        onClick={onClick}
       >
-        {link.label}
+        <span
+          className="pb-1 hover:border-b-4 hover:border-green-400 transition-all duration-300 before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-green-400 before:transition-all before:duration-300 hover:before:w-full"
+        >
+          {link.label}
+        </span>
       </Link>
     ));
   };
 
   return (
     <>
-      <nav className="bg-glass backdrop-blur-md shadow-lg py-4">
+      <nav
+        className={`bg-glass backdrop-blur-md shadow-lg py-4 fixed top-0 left-0 right-0 z-50 transition-transform duration-300 m-4 rounded-lg ${
+          showNavbar ? "translate-y-0" : "-translate-y-20"
+        }`}
+      >
         <div className="container mx-auto flex justify-between items-center px-4">
           <div className="text-2xl font-bold text-white">
             <Link href="/">Robinhood Club</Link>
@@ -126,8 +154,7 @@ export default function Navbar() {
             </svg>
           </button>
           <div className="flex flex-col space-y-4">
-            {renderLinks(toggleDrawer)}{" "}
-            {/* Pass toggleDrawer to close on link click */}
+            {renderLinks(toggleDrawer)}
           </div>
         </div>
       </div>

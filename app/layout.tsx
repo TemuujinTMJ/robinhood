@@ -13,7 +13,7 @@ export default function RootLayout({
       <head>
         <title>Robinhood Club</title>
       </head>
-      <body className="bg-gray-900 text-white">
+      <body className="bg-[#1A2332] text-white">
         <Navbar />
         <main className="min-h-screen">{children}</main>
         <Footer />
