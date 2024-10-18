@@ -1,5 +1,6 @@
-"use state";
+"use client";
 import React, { useState } from "react";
+import Container from "./container";
 
 type Plan = {
   name: string;
@@ -15,7 +16,23 @@ const plans: Plan[] = [
     name: "Free",
     price: { monthly: "$0", annual: "$0" },
     description: "Try RobinHood for free",
-    features: ["✅ Sl Calculator", "✅ Public Telegram Channel", "✅ Quiz 1"],
+    features: [
+      "✅ Sl Calculator",
+      "✅ Public Telegram Channel",
+      "✅ Quiz 1",
+      "❌ Quiz 2",
+      "❌ Basic Courses",
+      "❌ Signal",
+      "❌ Live Trade",
+      "❌ Trading Journal",
+      "❌ Advanced Courses",
+      "❌ E-HUB",
+      "❌ Copy Trade",
+      "❌ MentorShip",
+      "❌ 50'000$ Fund",
+      "❌ Live chat & Q&A",
+      "❌ E-HUB-VIP",
+    ],
   },
   {
     name: "Starter",
@@ -28,6 +45,15 @@ const plans: Plan[] = [
       "✅ Quiz 2",
       "✅ Basic Courses",
       "✅ Signal",
+      "❌ Live Trade",
+      "❌ Trading Journal",
+      "❌ Advanced Courses",
+      "❌ E-HUB",
+      "❌ Copy Trade",
+      "❌ MentorShip",
+      "❌ 50'000$ Fund",
+      "❌ Live chat & Q&A",
+      "❌ E-HUB-VIP",
     ],
     originalPrice: "$20",
   },
@@ -46,6 +72,11 @@ const plans: Plan[] = [
       "✅ Trading Journal",
       "✅ Advanced Courses",
       "✅ E-HUB",
+      "❌ Copy Trade",
+      "❌ MentorShip",
+      "❌ 50'000$ Fund",
+      "❌ Live chat & Q&A",
+      "❌ E-HUB-VIP",
     ],
     originalPrice: "$33",
     isPopular: true,
@@ -64,6 +95,7 @@ const plans: Plan[] = [
       "✅ Live Trade",
       "✅ Trading Journal",
       "✅ Advanced Courses",
+      "✅ E-HUB",
       "✅ Copy Trade",
       "✅ MentorShip",
       "✅ 50'000$ Fund",
@@ -110,12 +142,12 @@ const PlanCard = ({
         background: isHovering
           ? `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(255, 255, 255, 0.2), transparent)`
           : "transparent",
-        border: isHovering ? "2px solid white" : "2px solid transparent",
         boxShadow: isHovering ? `0 0 15px rgba(255, 255, 255, 0.5)` : "none",
       }}
+      className="rounded-lg"
     >
       <div
-        className={`shadow-lg flex flex-col bg-glass rounded-lg p-6 justify-between h-full gap-4   text-center  ${
+        className={`shadow-lg flex flex-col bg-glass rounded-lg p-6 justify-between h-full gap-4 text-center ${
           isPopular ? "border-4 border-purple-500 relative" : ""
         }`}
       >
@@ -136,7 +168,18 @@ const PlanCard = ({
 
           <ul className="text-left space-y-2">
             {features.map((feature, index) => (
-              <li key={index}>{feature}</li>
+              <li
+                key={index}
+                className={`${
+                  feature.includes("❌") && "line-through text-gray-500 items-center hidden md:block"
+                }`}
+              >
+                {feature.includes("❌") ? (
+                  <>❌{feature.replace("❌", "")}</>
+                ) : (
+                  feature
+                )}
+              </li>
             ))}
           </ul>
         </div>
@@ -147,14 +190,14 @@ const PlanCard = ({
     </div>
   );
 };
-//   </CardWithCursorBorder>
 
 const PricingCard = () => {
   const [isAnnual, setIsAnnual] = useState(true);
 
   return (
-    <div className=" py-12 px-6">
-      <div className="text-center mb-12 ">
+    <Container>
+      <div className="py-12 px-6">
+      <div className="text-center mb-12">
         <div className="flex justify-center space-x-4">
           <button
             onClick={() => setIsAnnual(false)}
@@ -175,12 +218,13 @@ const PricingCard = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
         {plans.map((plan) => (
           <PlanCard key={plan.name} {...plan} isAnnual={isAnnual} />
         ))}
       </div>
     </div>
+    </Container>
   );
 };
 
