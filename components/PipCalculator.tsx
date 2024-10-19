@@ -68,7 +68,7 @@ const PipCalculatorForm = () => {
         <div className="bg-glass backdrop-blur-lg p-6 sm:p-8 rounded-lg shadow-lg w-full grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-[800px]">
           <div>
             <h1 className="text-2xl sm:text-3xl font-bold mb-4 text-white">
-              SL Lot Size Calculator
+              LOT Size тооцоолуур
             </h1>
 
             <div className="mb-4">

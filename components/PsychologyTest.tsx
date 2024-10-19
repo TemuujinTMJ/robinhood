@@ -215,7 +215,7 @@ const QuizComponent = () => {
   if (result) {
     return (
       <Container>
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center mt-8">
           <div className="bg-glass backdrop-blur-lg p-10 rounded-lg shadow-xl">
             <h2 className="text-2xl font-bold mb-4 text-left">
               Баяр хүргэе! <br />
@@ -358,7 +358,7 @@ const QuizComponent = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center  mt-8">
       <div className="bg-glass backdrop-blur-lg p-10 rounded-lg shadow-xl max-w-lg relative">
         <h1 className="text-3xl font-semibold  mb-6 text-center">
           Арилжааны хэв маягийг тодорхойлох тест

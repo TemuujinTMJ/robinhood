@@ -74,7 +74,7 @@ export default function ForexPage() {
       {/* Call to Action Section */}
       <div className="mt-16 max-w-7xl w-full text-center">
         <button className="bg-green-500 hover:bg-green-600 text-white text-lg font-semibold py-3 px-8 rounded-lg transition duration-300 shadow-lg">
-          Арилжааны сургалтанд бүртгүүлэх
+          Завинд Амжиж Суу!
         </button>
       </div>
     </div>

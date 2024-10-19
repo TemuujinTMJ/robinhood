@@ -5,11 +5,11 @@ import { useEffect, useState } from "react";
 import Logo from '@/public/Logo.svg'
 import Image from "next/image";
 const links = [
-  { href: "/pip-calculator", label: "Pip Calculator" },
-  { href: "/psychology-test", label: "Psychology Test" },
-  { href: "/courses", label: "Courses" },
-  { href: "/forex", label: "What is Forex?" },
-  { href: "/auth", label: "Login / Sign Up" },
+  { href: "/pip-calculator", label: "LOT Size тооцоолуур" },
+  { href: "/psychology-test", label: "Сэтгэлзүйн тест" },
+  { href: "/courses", label: "Хичээлүүд" },
+  { href: "/forex", label: "Forex гэж юу вэ?" },
+  { href: "/auth", label: "Нэвтрэх / Бүртгүүлэх" },
 ];
 
 export default function Navbar() {

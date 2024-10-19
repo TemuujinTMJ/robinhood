@@ -16,7 +16,7 @@ const Courses = () => {
   return (
     <>
       <Head>
-        <title>Courses - Robinhood Club</title>
+        <title>Хичээлүүд - Robinhood Club</title>
         <meta name="description" content="Explore our trading courses to enhance your skills." />
       </Head>
       <div className="container mx-auto px-4 py-8">
