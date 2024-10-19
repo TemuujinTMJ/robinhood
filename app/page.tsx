@@ -5,6 +5,7 @@ import PricingCard from "@/components/PricingCard";
 import Roadmap from "@/components/Roadmap";
 import HomeHeader from "@/components/HomeHeader";
 import Testimonial from "@/components/Testimonial";
+import Partners from "@/components/Partners";
 
 const Home = () => {
   
@@ -19,6 +20,7 @@ const Home = () => {
         />
       </Head>
         <HomeHeader />
+        <Partners />
         <Roadmap />
         <FeatureCard />
         <PricingCard />

@@ -20,6 +20,23 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: none; /* Hide the scrollbar */
+  scrollbar-color: transparent transparent; /* Prevent flicker */
+}
+
+/* General overflow for scrolling */
+.container {
+  overflow: auto; /* or scroll */
+}
+
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

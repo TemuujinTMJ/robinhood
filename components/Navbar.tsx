@@ -2,7 +2,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-
+import Logo from '@/public/Logo.svg'
+import Image from "next/image";
 const links = [
   { href: "/", label: "Home" },
   { href: "/pip-calculator", label: "Pip Calculator" },
@@ -71,13 +72,13 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`bg-glass backdrop-blur-md shadow-lg py-4 fixed top-0 left-0 right-0 z-50 transition-transform duration-300 m-4 rounded-lg ${
+        className={`bg-glass backdrop-blur-md shadow-lg py-2 fixed top-0 left-0 right-0 z-50 transition-transform duration-300 m-4 rounded-lg ${
           showNavbar ? "translate-y-0" : "-translate-y-20"
         }`}
       >
-        <div className="container mx-auto flex justify-between items-center px-4">
+        <div className="mx-8 flex justify-between items-center">
           <div className="text-2xl font-bold text-white">
-            <Link href="/">Robinhood Club</Link>
+            <Link href="/"><Image src={Logo} alt="logo" height={60} width={200} /></Link>
           </div>
           <div className="hidden md:flex space-x-6">{renderLinks()}</div>
 
@@ -85,7 +86,7 @@ export default function Navbar() {
           <div className="md:hidden">
             <button
               onClick={toggleDrawer}
-              className="text-white focus:outline-none"
+              className="text-white focus:outline-none grid justify-end"
             >
               {isDrawerOpen ? (
                 <svg

@@ -20,7 +20,7 @@ const Testimonial = () => {
   ];
 
   return (
-    <section className="py-12 sm:py-20 bg-gray-900">
+    <section className="py-12 sm:py-8 mb-4 bg-[#1A2438]">
       <Container>
         <div className="container mx-auto px-4 sm:px-8">
           <h2 className="text-3xl sm:text-4xl font-bold text-center mb-8 sm:mb-12">

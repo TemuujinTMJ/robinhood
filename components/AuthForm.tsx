@@ -28,7 +28,7 @@ export default function AuthForm() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-800 to-gray-900">
+    <div className="flex justify-center items-center">
       <div className="bg-glass backdrop-blur-md p-8 rounded-lg shadow-xl w-full max-w-lg">
         <h2 className="text-3xl font-bold text-white text-center mb-6">
           {isLogin ? "Login" : "Sign Up"}

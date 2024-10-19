@@ -9,6 +9,7 @@ type Plan = {
   features: string[];
   isPopular?: boolean;
   originalPrice?: string;
+  originalPriceAnnual?: string;
 };
 
 const plans: Plan[] = [
@@ -33,10 +34,12 @@ const plans: Plan[] = [
       "❌ Live chat & Q&A",
       "❌ E-HUB-VIP",
     ],
+    originalPrice: "$0",
+    originalPriceAnnual: "$0",
   },
   {
     name: "Starter",
-    price: { monthly: "$16", annual: "$12" },
+    price: { monthly: "$29.95", annual: "$299.5" },
     description: "per month billed annually",
     features: [
       "✅ Sl Calculator",
@@ -55,11 +58,12 @@ const plans: Plan[] = [
       "❌ Live chat & Q&A",
       "❌ E-HUB-VIP",
     ],
-    originalPrice: "$20",
+    originalPrice: "$69.95",
+    originalPriceAnnual: "$359.95",
   },
   {
     name: "Standard",
-    price: { monthly: "$28", annual: "$20" },
+    price: { monthly: "$99.95", annual: "$999.5" },
     description: "per month billed annually",
     features: [
       "✅ Sl Calculator",
@@ -78,12 +82,13 @@ const plans: Plan[] = [
       "❌ Live chat & Q&A",
       "❌ E-HUB-VIP",
     ],
-    originalPrice: "$33",
+    originalPrice: "$199.95",
     isPopular: true,
+    originalPriceAnnual: "$2399.95",
   },
   {
     name: "Advanced",
-    price: { monthly: "$80", annual: "$65" },
+    price: { monthly: "$699.5", annual: "$699.5" },
     description: "per month billed annually",
     features: [
       "✅ Sl Calculator",
@@ -102,7 +107,8 @@ const plans: Plan[] = [
       "✅ Live chat & Q&A",
       "✅ E-HUB-VIP",
     ],
-    originalPrice: "$108",
+    originalPrice: "$999.95",
+    originalPriceAnnual: "$999.95",
   },
 ];
 
@@ -114,6 +120,7 @@ const PlanCard = ({
   isPopular,
   originalPrice,
   isAnnual,
+  originalPriceAnnual,
 }: Plan & { isAnnual: boolean }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
@@ -158,9 +165,7 @@ const PlanCard = ({
             </span>
           )}
           <h2 className="text-xl font-bold mb-4">{name}</h2>
-          {originalPrice && (
-            <p className="line-through text-gray-500">{originalPrice}</p>
-          )}
+            <p className="line-through text-gray-500">{isAnnual? originalPriceAnnual : originalPrice}</p>
           <p className="text-5xl font-bold mb-4">
             {isAnnual ? price.annual : price.monthly}
           </p>
@@ -213,7 +218,7 @@ const PricingCard = () => {
               isAnnual ? "bg-gray-800 text-white" : ""
             }`}
           >
-            Annually <span className="text-green-500">Save 40%</span>
+            Annually <span className="text-green-500">Save 6%</span>
           </button>
         </div>
       </div>

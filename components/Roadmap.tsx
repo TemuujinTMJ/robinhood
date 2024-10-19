@@ -102,14 +102,14 @@ const StepsSection = () => {
           <button
             onClick={handlePrev}
             className="px-4 py-2 bg-gray-600 opacity-50 text-white rounded-lg transition duration-300 hover:bg-green-500 absolute left-1 top-[40%]"
-            disabled={activeStep === 0}
+            style={{ display: activeStep === 0 ? 'none' : 'block'}}
           >
             {`<`}
           </button>
           <button
             onClick={handleNext}
             className="px-4 py-2 bg-gray-600 opacity-50 text-white rounded-lg transition duration-300 hover:bg-green-500 absolute right-1 top-[40%]"
-            disabled={activeStep === steps.length - 1}
+            style={{ display: activeStep === 4 ? 'none' : 'block'}}
           >
             {`>`}
           </button>

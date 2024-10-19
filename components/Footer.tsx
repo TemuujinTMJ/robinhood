@@ -8,35 +8,35 @@ import Image from "next/image";
 const Footer = () => {
   return (
     <footer className="bg-gray-900">
-      <div className="bg-glass backdrop-blur-lg mx-auto max-w-5xl text-center text-white grid grid-cols-3 items-center p-4 rounded-t-md justify-between">
+      <div className="bg-glass backdrop-blur-lg mx-auto max-w-5xl text-center text-white grid md:grid-cols-3 grid-cols-1 items-center p-4 rounded-t-md justify-between">
         <h2 className="text-2xl font-bold">Robinhood Club</h2>
         <p>
           &copy; {new Date().getFullYear()} Robinhood Club. All rights reserved.
         </p>
         <div className="flex justify-center space-x-6 items-center">
           <a
-            href="https://www.facebook.com"
+            href="https://www.facebook.com/robinhood.trading"
             target="_blank"
             rel="noopener noreferrer"
           >
             <Image src={Fb} width={16} height={16} alt="Fb"/>
             </a>
           <a
-            href="https://www.youtube.com"
+            href="https://www.youtube.com/@Robin_Hood2629"
             target="_blank"
             rel="noopener noreferrer"
           >
             <Image src={Yt} width={16} height={16} alt="Yt"/>
             </a>
           <a
-            href="https://www.instagram.com"
+            href="https://www.instagram.com/robinhood_academy/"
             target="_blank"
             rel="noopener noreferrer"
           >
             <Image src={Ig} width={16} height={16} alt="ig" />
           </a>
           <a
-            href="https://www.telegram.com"
+            href="https://t.me/RHPUBLICROOM"
             target="_blank"
             rel="noopener noreferrer"
             
