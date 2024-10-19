@@ -9,7 +9,7 @@ import Logo from "@/public/Logo.svg";
 const Footer = () => {
   return (
     <footer className="bg-gray-900 mt-4">
-      <div className="bg-glass backdrop-blur-lg mx-auto max-w-5xl text-center text-white grid md:grid-cols-3 grid-cols-1 items-center p-4 rounded-t-md justify-between">
+      <div className="bg-glass backdrop-blur-lg mx-auto text-center text-white grid md:grid-cols-3 grid-cols-1 items-center p-4 rounded-t-xl justify-between">
         <div>
           <Image src={Logo} alt="logo" width={150} className="self-center place-self-center"/>
         </div>

@@ -88,7 +88,7 @@ const plans: Plan[] = [
   },
   {
     name: "Advanced",
-    price: { monthly: "$699.5", annual: "$699.5" },
+    price: { monthly: "$6999.95", annual: "$6999.95" },
     description: "per month billed annually",
     features: [
       "✅ Sl Calculator",
@@ -107,8 +107,8 @@ const plans: Plan[] = [
       "✅ Live chat & Q&A",
       "✅ E-HUB-VIP",
     ],
-    originalPrice: "$999.95",
-    originalPriceAnnual: "$999.95",
+    originalPrice: "LifeTime",
+    originalPriceAnnual: "LifeTime",
   },
 ];
 
@@ -120,8 +120,14 @@ const PlanCard = ({
   isPopular,
   originalPrice,
   isAnnual,
+  setHover,
+  hover,
   originalPriceAnnual,
-}: Plan & { isAnnual: boolean }) => {
+}: Plan & {
+  isAnnual: boolean;
+  hover: number;
+  setHover: (number: number) => void;
+}) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
 
@@ -134,11 +140,13 @@ const PlanCard = ({
 
   const handleMouseEnter = () => {
     setIsHovering(true);
+    setHover(1);
   };
 
   const handleMouseLeave = () => {
     setIsHovering(false);
     setMousePosition({ x: 0, y: 0 });
+    setHover(0);
   };
   return (
     <div
@@ -149,9 +157,16 @@ const PlanCard = ({
         background: isHovering
           ? `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(255, 255, 255, 0.2), transparent)`
           : "transparent",
-        boxShadow: isHovering ? `0 0 15px rgba(255, 255, 255, 0.5)` : "none",
+        boxShadow: isHovering ? `0 0 15px rgba(255, 255, 255, 0.1)` : "none",
+        transition: "transform 0.3s ease-in-out",
       }}
-      className="rounded-lg"
+      className={`rounded-lg transform ${
+        isHovering
+          ? "scale-105"
+          : hover === 0 && isPopular
+          ? "scale-105"
+          : "scale-100 opacity-50"
+      }`}
     >
       <div
         className={`shadow-lg flex flex-col bg-glass rounded-lg p-6 justify-between h-full gap-4 text-center ${
@@ -165,7 +180,13 @@ const PlanCard = ({
             </span>
           )}
           <h2 className="text-xl font-bold mb-4">{name}</h2>
-            <p className="line-through text-gray-500">{isAnnual? originalPriceAnnual : originalPrice}</p>
+          <p
+            className={`${
+              originalPrice !== "LifeTime" ? "line-through " : "bg-green-600 rounded"
+            } text-gray-500"`}
+          >
+            {isAnnual ? originalPriceAnnual : originalPrice}
+          </p>
           <p className="text-5xl font-bold mb-4">
             {isAnnual ? price.annual : price.monthly}
           </p>
@@ -176,7 +197,8 @@ const PlanCard = ({
               <li
                 key={index}
                 className={`${
-                  feature.includes("❌") && "line-through text-gray-500 items-center hidden md:block"
+                  feature.includes("❌") &&
+                  `line-through text-gray-500 items-center hidden md:block`
                 }`}
               >
                 {feature.includes("❌") ? (
@@ -188,7 +210,7 @@ const PlanCard = ({
             ))}
           </ul>
         </div>
-        <button className="bg-green-500 text-white py-2 px-6 rounded-lg mb-4">
+        <button className="bg-green-700 text-white py-2 px-6 rounded-lg mb-4">
           Get {name}
         </button>
       </div>
@@ -198,37 +220,44 @@ const PlanCard = ({
 
 const PricingCard = () => {
   const [isAnnual, setIsAnnual] = useState(true);
+  const [hover, setHover] = useState(0);
 
   return (
     <Container>
       <div className="py-12 px-6">
-      <div className="text-center mb-12">
-        <div className="flex justify-center space-x-4">
-          <button
-            onClick={() => setIsAnnual(false)}
-            className={`py-2 px-6 rounded-full ${
-              !isAnnual ? "bg-gray-800 text-white" : ""
-            }`}
-          >
-            Monthly
-          </button>
-          <button
-            onClick={() => setIsAnnual(true)}
-            className={`py-2 px-6 rounded-full ${
-              isAnnual ? "bg-gray-800 text-white" : ""
-            }`}
-          >
-            Annually <span className="text-green-500">Save 6%</span>
-          </button>
+        <div className="text-center mb-12">
+          <div className="flex justify-center space-x-4">
+            <button
+              onClick={() => setIsAnnual(false)}
+              className={`py-2 px-6 rounded-full ${
+                !isAnnual ? "bg-gray-800 text-white" : ""
+              }`}
+            >
+              Monthly
+            </button>
+            <button
+              onClick={() => setIsAnnual(true)}
+              className={`py-2 px-6 rounded-full ${
+                isAnnual ? "bg-gray-800 text-white" : ""
+              }`}
+            >
+              Annually <span className="text-green-600">Save 6%</span>
+            </button>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+          {plans.map((plan) => (
+            <PlanCard
+              key={plan.name}
+              {...plan}
+              isAnnual={isAnnual}
+              hover={hover}
+              setHover={setHover}
+            />
+          ))}
         </div>
       </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-        {plans.map((plan) => (
-          <PlanCard key={plan.name} {...plan} isAnnual={isAnnual} />
-        ))}
-      </div>
-    </div>
     </Container>
   );
 };
