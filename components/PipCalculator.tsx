@@ -36,36 +36,36 @@ const currencyPairsWithCoefficients: { [key: string]: number } = {
 
 const PipCalculatorForm = () => {
   const [pair, setPair] = useState<string>("EUR/USD");
-  const [accountSize, setAccountSize] = useState<number | string>("");
-  const [riskPercent, setRiskPercent] = useState<number | string>("");
-  const [slValue, setSlValue] = useState<number | string>("");
-  const [tpValue, setTpValue] = useState<number | string>("");
-  const [lotSize, setLotSize] = useState<number | null>(null);
-  const [riskAmount, setRiskAmount] = useState<number | null>(null);
-  const [potentialProfit, setPotentialProfit] = useState<number | null>(null);
-  const [riskRewardRatio, setRiskRewardRatio] = useState<number | null>(null);
-  const [balanceAfterLoss, setBalanceAfterLoss] = useState<number | null>(null);
+  const [accountSize, setAccountSize] = useState<number>(1);
+  const [riskPercent, setRiskPercent] = useState<number>(1);
+  const [slValue, setSlValue] = useState<number>(1);
+  const [tpValue, setTpValue] = useState<number>(1);
+  const [lotSize, setLotSize] = useState<number>(1);
+  const [riskAmount, setRiskAmount] = useState<number>(1);
+  const [potentialProfit, setPotentialProfit] = useState<number>(1);
+  const [riskRewardRatio, setRiskRewardRatio] = useState<number>(1);
+  const [balanceAfterLoss, setBalanceAfterLoss] = useState<number>(1);
 
   const handleCalculate = () => {
     const coefficient = currencyPairsWithCoefficients[pair] || 1;
-    const slAmount = (Number(accountSize) * Number(riskPercent)) / 100;
-    const riskAmountCalc = (Number(riskPercent) / 100) * Number(accountSize);
-    const lotSizeCalc = slAmount / (Number(slValue) * coefficient);
+    const slAmount = (accountSize * riskPercent) / 100;
+    const riskAmountCalc = (riskPercent / 100) * accountSize;
+    const lotSizeCalc = slAmount / (slValue * coefficient);
 
-    const potentialProfitCalc = lotSizeCalc * Number(tpValue) * coefficient;
+    const potentialProfitCalc = lotSizeCalc * tpValue * coefficient;
     const riskRewardRatioCalc = potentialProfitCalc / riskAmountCalc;
 
     setLotSize(lotSizeCalc);
     setRiskAmount(riskAmountCalc);
     setPotentialProfit(potentialProfitCalc);
     setRiskRewardRatio(riskRewardRatioCalc);
-    setBalanceAfterLoss(Number(accountSize) - riskAmountCalc);
+    setBalanceAfterLoss(accountSize - riskAmountCalc);
   };
 
   return (
     <Container>
       <div className="bg-gray-900 py-12 px-4 flex items-center justify-center flex-col ">
-        <div className="bg-glass backdrop-blur-lg p-6 sm:p-8 rounded-lg shadow-lg max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-[800px]">
+        <div className="bg-glass backdrop-blur-lg p-6 sm:p-8 rounded-lg shadow-lg w-full grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-[800px]">
           <div>
             <h1 className="text-2xl sm:text-3xl font-bold mb-4 text-white">
               SL Lot Size Calculator
@@ -73,7 +73,7 @@ const PipCalculatorForm = () => {
 
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-200">
-                Currency Pair
+                Хослол
               </label>
               <select
                 value={pair}
@@ -92,12 +92,12 @@ const PipCalculatorForm = () => {
 
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-200">
-                Account Size
+                Дансны үлдэгдэл / $ /
               </label>
               <input
                 type="number"
                 value={accountSize}
-                onChange={(e) => setAccountSize(e.target.value)}
+                onChange={(e) => setAccountSize(parseInt(e.target.value))}
                 className="mt-1 block w-full px-3 py-2 border-none rounded-md text-sm focus:outline-none focus:ring-green-500 focus:border-green-500 bg-gray-800 text-white"
                 placeholder="Enter Account Size"
               />
@@ -105,12 +105,12 @@ const PipCalculatorForm = () => {
 
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-200">
-                Risk Percentage (%)
+                Эрсдэл / % /
               </label>
               <input
                 type="number"
                 value={riskPercent}
-                onChange={(e) => setRiskPercent(e.target.value)}
+                onChange={(e) => setRiskPercent(parseInt(e.target.value))}
                 className="mt-1 block w-full px-3 py-2 border-none rounded-md text-sm focus:outline-none focus:ring-green-500 focus:border-green-500 bg-gray-800 text-white"
                 placeholder="Enter Risk Percentage"
               />
@@ -118,12 +118,12 @@ const PipCalculatorForm = () => {
 
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-200">
-                SL Pip Range
+                SL Тавих зай /pips/
               </label>
               <input
                 type="number"
                 value={slValue}
-                onChange={(e) => setSlValue(e.target.value)}
+                onChange={(e) => setSlValue(parseInt(e.target.value))}
                 className="mt-1 block w-full px-3 py-2 border-none rounded-md text-sm focus:outline-none focus:ring-green-500 focus:border-green-500 bg-gray-800 text-white"
                 placeholder="Enter SL Pip Range"
               />
@@ -131,12 +131,12 @@ const PipCalculatorForm = () => {
 
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-200">
-                TP Pip Range
+                TP Тавих зай /pips/
               </label>
               <input
                 type="number"
                 value={tpValue}
-                onChange={(e) => setTpValue(e.target.value)}
+                onChange={(e) => setTpValue(parseInt(e.target.value))}
                 className="mt-1 block w-full px-3 py-2 border-none rounded-md text-sm focus:outline-none focus:ring-green-500 focus:border-green-500 bg-gray-800 text-white"
                 placeholder="Enter TP Pip Range"
               />
@@ -146,44 +146,55 @@ const PipCalculatorForm = () => {
               onClick={handleCalculate}
               className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 transition"
             >
-              Calculate Lot Size
+              Тооцоолох
             </button>
           </div>
 
           <div>
             <h2 className="text-xl sm:text-2xl font-bold mb-4 text-white">
-              Results
+              Үр дүн
             </h2>
 
-            {lotSize !== null && (
-              <div className="space-y-4">
-                <div className="bg-gray-800 p-4 rounded-md">
-                  <p className="text-lg font-bold text-green-400">
-                    Calculated Lot Size: {lotSize.toFixed(2)}
-                  </p>
-                </div>
-                <div className="bg-gray-800 p-4 rounded-md">
-                  <p className="text-lg font-bold text-green-400">
-                    Risk Amount: {riskAmount?.toFixed(2)} USD
-                  </p>
-                </div>
-                <div className="bg-gray-800 p-4 rounded-md">
-                  <p className="text-lg font-bold text-green-400">
-                    Balance After Loss: {balanceAfterLoss?.toFixed(2)} USD
-                  </p>
-                </div>
-                <div className="bg-gray-800 p-4 rounded-md">
-                  <p className="text-lg font-bold text-green-400">
-                    Potential Profit: {potentialProfit?.toFixed(2)} USD
-                  </p>
-                </div>
-                <div className="bg-gray-800 p-4 rounded-md">
-                  <p className="text-lg font-bold text-green-400">
-                    Risk-Reward Ratio: 1/{riskRewardRatio?.toFixed(2)}
-                  </p>
-                </div>
+            <div className="space-y-4">
+              <div className="bg-gray-800 p-4 rounded-md">
+                <p className=" font-bold">
+                  Lot хэмжээ: <br />{" "}
+                  <span className="text-green-400">{lotSize?.toFixed(2)}</span>
+                </p>
               </div>
-            )}
+              <div className="bg-gray-800 p-4 rounded-md">
+                <p className=" font-bold">
+                  Эрсдэл / $ /: <br />{" "}
+                  <span className="text-green-400">
+                    {riskAmount?.toFixed(2)}
+                  </span>
+                </p>
+              </div>
+              <div className="bg-gray-800 p-4 rounded-md">
+                <p className=" font-bold">
+                  Алдагдал хүлээх дансны үлдэгдэл / $ /: <br />
+                  <span className="text-green-400">
+                    {balanceAfterLoss?.toFixed(2)}
+                  </span>
+                </p>
+              </div>
+              <div className="bg-gray-800 p-4 rounded-md">
+                <p className=" font-bold">
+                  Боломжит ашиг / $ /: <br />{" "}
+                  <span className="text-green-400">
+                    {potentialProfit?.toFixed(2)}
+                  </span>
+                </p>
+              </div>
+              <div className="bg-gray-800 p-4 rounded-md">
+                <p className=" font-bold">
+                  Эрсдэл ашигийн харьцаа / RR /: 1/ <br />
+                  <span className="text-green-400">
+                    {riskRewardRatio?.toFixed(2)}
+                  </span>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 

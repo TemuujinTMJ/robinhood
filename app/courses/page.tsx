@@ -5,22 +5,22 @@ import Container from "@/components/container";
 
 const coursesData = [
   {
-    title: "ICT",
+    title: "Simple",
     description:
       "Learn the foundational concepts of Information and Communication Technology.",
   },
   {
-    title: "Elliot Wave",
+    title: "Common",
     description:
       "Discover the principles of the Elliott Wave Theory for market analysis.",
   },
   {
-    title: "Support and Resistance",
+    title: "Advanced",
     description:
       "Understand key levels in the market for effective trading decisions.",
   },
   {
-    title: "Fibonacci Retracement and Extensions",
+    title: "Complex",
     description:
       "Master the use of Fibonacci tools for predicting price movements.",
   },
@@ -36,10 +36,10 @@ const Courses = () => {
           content="Explore our trading courses to enhance your skills."
         />
       </Head>
-      <section className="py-20 bg-gray-800">
+      <section>
         <div className="mx-auto px-8">
           <h2 className="text-4xl font-bold text-center mb-12">
-            Available Courses
+            Хичээлүүд
           </h2>
           <Container>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -57,16 +57,12 @@ const Courses = () => {
                     </h3>
                     <p>{course.description}</p>
                   </div>
-                  <Link
-                    href={`/courses/${course.title
-                      .toLowerCase()
-                      .replace(/\s+/g, "-")}`}
-                    passHref
+                  <button
+                    disabled
+                    className="bg-gray-600 text-white py-2 px-4 rounded  transition duration-300 mt-4"
                   >
-                    <button className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300 mt-4">
-                      Learn More
-                    </button>
-                  </Link>
+                    Тун удахгүй
+                  </button>
                 </div>
               ))}
             </div>

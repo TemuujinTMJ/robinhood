@@ -7,7 +7,7 @@ import Image from "next/image";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900">
+    <footer className="bg-gray-900 mt-4">
       <div className="bg-glass backdrop-blur-lg mx-auto max-w-5xl text-center text-white grid md:grid-cols-3 grid-cols-1 items-center p-4 rounded-t-md justify-between">
         <h2 className="text-2xl font-bold">Robinhood Club</h2>
         <p>

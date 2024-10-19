@@ -4,7 +4,10 @@ import { useState } from "react";
 export default function AuthForm() {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
     email: "",
+    phone: "",
     password: "",
     confirmPassword: "", // Only used in Sign-Up
   });
@@ -28,18 +31,73 @@ export default function AuthForm() {
   };
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center gap-10 md:mt-16 mt-4 flex-wrap md:flex-nowrap">
+      <div className="grid md:text-right text-center max-w-[500px] gap-4">
+        <h1 className="text-5xl font-bold text-green-400">Robinhood traders</h1>
+        <h1 className="text-5xl font-bold">Тавтай морил!</h1>
+        <div>
+          Арилжааны аргачлалаа тодорхойлж монголын мянга мянган арилжаачдын нэгдсэн нийгэмлэгт орж ашигтай арилжаачин болоорой. Зах зээлд бид өрсөлдөгч биш, хамтрагчид юм
+        </div>
+      </div>
       <div className="bg-glass backdrop-blur-md p-8 rounded-lg shadow-xl w-full max-w-lg">
         <h2 className="text-3xl font-bold text-white text-center mb-6">
-          {isLogin ? "Login" : "Sign Up"}
+          {isLogin ? "Нэвтрэх" : "Бүртгүүлэх"}
         </h2>
         <form onSubmit={handleSubmit} className="space-y-6">
+          {!isLogin && (
+            <>
+              <div className="flex flex-nowrap gap-4">
+              <div className="flex-1">
+                <label htmlFor="firstName" className="block text-sm font-medium text-gray-300">
+                  Нэр
+                </label>
+                <input
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  className="mt-1 block w-full px-4 py-2 bg-glass backdrop-blur-xs border border-gray-300 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500"
+                  required
+                />
+              </div>
+              <div className="flex-1">
+                <label htmlFor="lastName" className="block text-sm font-medium text-gray-300">
+                  Овог
+                </label>
+                <input
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  className="mt-1 block w-full px-4 py-2 bg-glass backdrop-blur-xs border border-gray-300 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500"
+                  required
+                />
+              </div>
+              </div>
+              
+
+              <div>
+                <label htmlFor="phone" className="block text-sm font-medium text-gray-300">
+                  Утасны дугаар
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className="mt-1 block w-full px-4 py-2 bg-glass backdrop-blur-xs border border-gray-300 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500"
+                  required
+                />
+              </div>
+            </>
+          )}
+
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-300"
-            >
-              Email
+            <label htmlFor="email" className="block text-sm font-medium text-gray-300">
+              Имэйл
             </label>
             <input
               type="email"
@@ -53,11 +111,8 @@ export default function AuthForm() {
           </div>
 
           <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-300"
-            >
-              Password
+            <label htmlFor="password" className="block text-sm font-medium text-gray-300">
+              Нууц үг
             </label>
             <input
               type="password"
@@ -76,7 +131,7 @@ export default function AuthForm() {
                 htmlFor="confirmPassword"
                 className="block text-sm font-medium text-gray-300"
               >
-                Confirm Password
+                Нууц үг баталгаажуулах
               </label>
               <input
                 type="password"
@@ -94,19 +149,19 @@ export default function AuthForm() {
             type="submit"
             className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 rounded-lg transition duration-300"
           >
-            {isLogin ? "Login" : "Sign Up"}
+            {isLogin ? "Нэвтрэх" : "Бүртгүүлэх"}
           </button>
         </form>
 
         <div className="text-center mt-6">
           <p className="text-gray-300">
-            {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
+            {isLogin ? "Бүртгэлгүй юу?" : "Хэрэглэгчтэй юу?"}{" "}
             <button
               type="button"
               onClick={toggleForm}
               className="text-green-400 hover:underline focus:outline-none"
             >
-              {isLogin ? "Sign Up" : "Login"}
+              {isLogin ? "Бүртгүүлэх" : "Нэвтрэх"}
             </button>
           </p>
         </div>

@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import Logo from '@/public/Logo.svg'
 import Image from "next/image";
 const links = [
-  { href: "/", label: "Home" },
   { href: "/pip-calculator", label: "Pip Calculator" },
   { href: "/psychology-test", label: "Psychology Test" },
   { href: "/courses", label: "Courses" },

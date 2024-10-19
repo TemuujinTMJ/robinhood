@@ -1,56 +1,82 @@
-import React from 'react';
-import Head from 'next/head';
+import React from "react";
 
-const WhatIsForex = () => {
+export default function ForexPage() {
   return (
-    <>
-      <Head>
-        <title>What is Forex? - Robinhood Club</title>
-        <meta name="description" content="Learn about Forex trading and how it works." />
-      </Head>
-      <div className="bg-gray-900 text-white">
-        {/* Hero Section with Glassmorphism */}
-        <section className="py-20 bg-gradient-to-br from-gray-800 to-gray-900 relative">
-          <div className="bg-glass backdrop-blur-lg p-12 rounded-lg shadow-lg mx-auto max-w-4xl text-center">
-            <h1 className="text-5xl font-extrabold mb-4">What is Forex?</h1>
-            <p className="text-xl mb-8">
-              Discover the world of Forex trading and its significance in the global market.
-            </p>
-          </div>
-        </section>
-
-        {/* Content Section */}
-        <section className="py-20 bg-gray-800">
-          <div className="container mx-auto px-8">
-            <h2 className="text-4xl font-bold text-center mb-12">Understanding Forex Trading</h2>
-            <div className="bg-glass backdrop-blur-md p-8 rounded-lg shadow-lg mx-auto max-w-3xl">
-              {/* Placeholder Image */}
-              <div className="h-48 bg-gray-200 rounded-t-lg mb-4 flex items-center justify-center">
-                <span className="text-gray-400">Placeholder Image for Forex Trading</span>
-              </div>
-              <p className="mb-6">
-                Forex, or foreign exchange, is the global marketplace for trading national currencies against one another. 
-                It is the largest financial market in the world, with trillions of dollars traded daily. 
-                Forex trading allows individuals and institutions to speculate on the price movements of currency pairs.
-              </p>
-              <h3 className="text-2xl font-semibold mb-4">Key Features of Forex Trading:</h3>
-              <ul className="list-disc list-inside mb-6">
-                <li>24-hour market: Forex is open 24 hours a day, five days a week.</li>
-                <li>High liquidity: Forex is known for its high liquidity, allowing for quick trade execution.</li>
-                <li>Leverage: Forex brokers often offer high leverage, enabling traders to control large positions with smaller amounts of capital.</li>
-                <li>Diverse trading options: Traders can engage in spot trades, futures, options, and more.</li>
-              </ul>
-              <h3 className="text-2xl font-semibold mb-4">How to Start Trading Forex:</h3>
-              <p>
-                To start trading Forex, you will need to choose a reliable broker, set up a trading account, and develop a trading strategy. 
-                It is also important to educate yourself about the market and practice with a demo account before trading with real money.
-              </p>
-            </div>
-          </div>
-        </section>
+    <div className="min-h-screen bg-gray-900 text-gray-100 flex flex-col items-center py-12 px-4 md:px-16 lg:px-24">
+      {/* Hero Section */}
+      <div className="max-w-7xl w-full text-center mb-16">
+        <h1 className="text-5xl md:text-6xl font-extrabold text-green-400 mb-6">
+          FOREX гэж юу вэ?
+        </h1>
+        <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
+          Форекс буюу гадаад валютын зах зээл нь дэлхийн хамгийн том санхүүгийн зах зээл бөгөөд өдөр бүр 6 их наяд долларын арилжаа хийгддэг.
+        </p>
       </div>
-    </>
-  );
-};
 
-export default WhatIsForex;
+      {/* Main Content */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-16 max-w-7xl w-full">
+        {/* Informational Content */}
+        <div className="space-y-12">
+          {/* Section 1 */}
+          <section>
+            <h2 className="text-3xl md:text-4xl font-bold text-green-400 mb-4">
+              FOREX зах зээлийн тухай
+            </h2>
+            <p className="text-lg text-gray-300 leading-relaxed">
+              Форекс арилжаа нь валютын ханшны өсөлт, бууралтаас ашиг олох зорилгоор хийгддэг бөгөөд зах зээл нь 24 цагийн туршид ажиллаж байдаг. Арилжаачид валютын хосуудыг худалдаж авч, зарж, зах зээлийн ханшны хэлбэлзлийг ашиглан ашиг олох боломжтой.
+            </p>
+          </section>
+
+          {/* Section 2 */}
+          <section>
+            <h2 className="text-3xl md:text-4xl font-bold text-green-400 mb-4">
+              FOREX зах зээлийн тоглогчид
+            </h2>
+            <ul className="space-y-4 text-lg text-gray-300">
+              <li>🏦 <span className="font-semibold">Төв банкууд</span>: Валютын ханшийн зохицуулалт, бодлого хэрэгжүүлдэг.</li>
+              <li>📉 <span className="font-semibold">Санхүүгийн байгууллагууд</span>: Банк болон хөрөнгө оруулалтын сангууд оролцдог.</li>
+              <li>👨‍💻 <span className="font-semibold">Жижиглэнгийн арилжаачид</span>: Хувь хүмүүс бага хэмжээний хөрөнгөөр арилжаанд оролцдог.</li>
+            </ul>
+          </section>
+
+          {/* Section 3 */}
+          <section>
+            <h2 className="text-3xl md:text-4xl font-bold text-green-400 mb-4">
+              FOREX-ийн давуу талууд
+            </h2>
+            <ul className="space-y-4 text-lg text-gray-300">
+              <li>🌍 <span className="font-semibold">Дэлхийн цар хүрээ</span>: Өдөрт хэдэн их наяд долларын арилжаа хийгддэг.</li>
+              <li>⌛ <span className="font-semibold">24 цагийн арилжаа</span>: Долоо хоногт таван өдөр, 24 цагийн турш арилжаа хийх боломжтой.</li>
+              <li>⚖️ <span className="font-semibold">Өндөр хөшүүрэг</span>: Их хэмжээний арилжаа хийх боломж.</li>
+            </ul>
+          </section>
+        </div>
+
+        {/* Glassmorphism Card - Features and Tips */}
+        <div className="bg-glass backdrop-blur-md p-8 rounded-lg shadow-lg text-gray-300">
+          <h2 className="text-3xl font-bold text-white mb-6">FOREX-ийн онцлог</h2>
+          <ul className="space-y-4 text-lg text-gray-300">
+            <li>🌍 Дэлхийн хамгийн том зах зээл</li>
+            <li>💸 Өдөрт хэдэн их наяд долларын арилжаа хийгддэг</li>
+            <li>⚖️ Валютын ханшны хэлбэлзлийг ашиглах боломж</li>
+            <li>📊 Бага зардалтай арилжааны боломж</li>
+          </ul>
+
+          <h2 className="text-3xl font-bold text-white mt-10 mb-6">Форекс арилжааны зөвлөмжүүд</h2>
+          <ul className="space-y-4 text-lg text-gray-300">
+            <li>🎯 <span className="font-semibold">Судалгаа хийх</span>: Валютын зах зээлийн чиг хандлагыг судалж, шийдвэр гарга.</li>
+            <li>⚠️ <span className="font-semibold">Эрсдэлийг удирдах</span>: Хөрөнгөө хамгаалахын тулд эрсдэлийг удирдах стратеги ашигла.</li>
+            <li>📉 <span className="font-semibold">Сэтгэл хөдлөлөө хянах</span>: Арилжааг хэт сэтгэл хөдлөлөөс сэргийлэн удирд.</li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Call to Action Section */}
+      <div className="mt-16 max-w-7xl w-full text-center">
+        <button className="bg-green-500 hover:bg-green-600 text-white text-lg font-semibold py-3 px-8 rounded-lg transition duration-300 shadow-lg">
+          Арилжааны сургалтанд бүртгүүлэх
+        </button>
+      </div>
+    </div>
+  );
+}

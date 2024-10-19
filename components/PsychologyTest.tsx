@@ -1,13 +1,16 @@
 "use client";
 import { useState } from "react";
+import Container from "./container";
 
 type Question = {
   question: string;
   options: { text: string; points: number }[];
+  index: number;
 };
 
 const questions: Question[] = [
   {
+    index: 1,
     question: "Амралтын өдрөө хэрхэн төлөвлөдөг вэ?",
     options: [
       { text: "A) Цаг минут бүрийг төлөвлөх дуртай", points: 1 },
@@ -22,6 +25,7 @@ const questions: Question[] = [
     ],
   },
   {
+    index: 2,
     question: "Чухал зүйл худалдан авахдаа хэрхэн шийдвэр гаргадаг вэ?",
     options: [
       {
@@ -39,6 +43,7 @@ const questions: Question[] = [
     ],
   },
   {
+    index: 3,
     question: "Өдрийн турш утсаа хэр давтамжтай оролддог вэ?",
     options: [
       {
@@ -56,6 +61,7 @@ const questions: Question[] = [
     ],
   },
   {
+    index: 4,
     question: "Аялал хийхдээ ямар аяллын хөтөлбөрийг илүүд үздэг вэ?",
     options: [
       {
@@ -73,6 +79,7 @@ const questions: Question[] = [
     ],
   },
   {
+    index: 5,
     question: "Өдөр тутмын ажилдаа хэрхэн ханддаг вэ?",
     options: [
       {
@@ -90,6 +97,7 @@ const questions: Question[] = [
     ],
   },
   {
+    index: 6,
     question: "Найз нөхөдөө сонгоход хэрхэн ханддаг вэ?",
     options: [
       {
@@ -107,6 +115,7 @@ const questions: Question[] = [
     ],
   },
   {
+    index: 7,
     question: "Найз нөхөдтэйгөө цагийг өнгөрөөхдөө ямар зүйлс хийх дуртай вэ?",
     options: [
       {
@@ -124,6 +133,7 @@ const questions: Question[] = [
     ],
   },
   {
+    index: 8,
     question: "Амьдралд эрсдэл гаргахад хэрхэн ханддаг вэ?",
     options: [
       {
@@ -141,6 +151,7 @@ const questions: Question[] = [
     ],
   },
   {
+    index: 9,
     question: "Стрессд орох үед хэрхэн хариу үйлдэл үзүүлдэг вэ?",
     options: [
       {
@@ -158,6 +169,7 @@ const questions: Question[] = [
     ],
   },
   {
+    index: 10,
     question:
       "Ажлаа шөнө эсвэл ажлын цагаас гадуур хийхийг хэрхэн хүлээж авдаг вэ?",
     options: [
@@ -178,7 +190,6 @@ const QuizComponent = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [totalPoints, setTotalPoints] = useState(0);
   const [result, setResult] = useState<string | null>(null);
-  const[currentIndex, setCurrentIndex] = useState(0)
 
   const handleOptionClick = (points: number) => {
     const newTotalPoints = totalPoints + points;
@@ -203,21 +214,146 @@ const QuizComponent = () => {
 
   if (result) {
     return (
-      <div className="flex flex-col items-center justify-center">
-        <div className="bg-glass backdrop-blur-lg p-10 rounded-lg shadow-xl max-w-[800px]">
-          <h2 className="text-2xl font-bold mb-4 text-center">
-            Таны арилжааны хэв маяг: <span className="text-green-400">{result}</span>
-          </h2>
-          <p>
-            {result === "Scalper" &&
-              "Хурдтай орчинд та амжилттай ажилладаг, таны түргэн шийдвэр гаргах чадвар нь scalping арилжаанд тохиромжтой. Энэ арилжааны хэв маяг нь хурд, нарийвчлал, зах зээлийн жижиг боловч тогтмол боломжуудыг ашиглахад оршино. Та богино хугацаанд олон арилжаа хийхэд дуртай бөгөөд аливаа зүйлийг хурдан ойлгож шийдвэрлэх чадвар тань таны хамгийн том давуу тал байх болно. Скалперийн хувьд та богино хугацааны үнийн өөрчлөлтийг таньж мэдэх, хурдан арилжаа хийх ур чадвараа хөгжүүлнэ. Энэ нь сахилга бат, анхаарал төвлөрөл, зах зээлд байнга анхаарал тавихыг шаарддаг. Scalping-н хэмнэл нь хурдаг байж болох ч, таны стратеги хурц, сахилга бат байвал амжилт хурдан ирэх боломжтой. Өнөөдөр Scalping-н ертөнцийг судалж эхлээрэй! Энэ бол үнийн богино хэмжээний өөрчлөлтүүдээс ашиг хүртэх дуртай хүмүүст төгс арилжааны хэв маяг юм."}
-            {result === "Day Trader" &&
-              "Та тогтсон дэг журамтай ажиллах дуртай бөгөөд үүний хажуугаар аливаа нөхцөл байдалд бага зэрэг уян хатан ханддаг. Өдрийн арилжаачны хувьд та өдрийн зах зээлийн хөдөлгөөн дундаас боломжийг олж харах болно. Та өдөр бүрийн үнийн хэлбэлзэлд суурилсан шинжилгээгээр арилжаа хийх тул шөнөөр захиалгаа барьж сэтгэлээ түгшээхгүй зайлсхийж чадна. Таны төвлөрөл, шийдэмгий зан, богино хугацааны төлөвлөгөө боловсруулах чадвар тань энэ арилжааны хэв маягт хамгийн тохиромжтой. Техник болон бодит цагийн мэдээлэлд тулгуурлан зах зээлийн хэлбэлзлийг ашиглан арилжаа хийдэг. Өдрийн арилжаачид өдөр бүр шинэ боломжийг хардаг бөгөөд та зах зээлийн тухайн өдрийн чиг хандлагад уялдуулан захиалгаа өгнө. Энэ стратеги нь танд өдөр бүр арилжаа хийх боломжийг олгох хэдий ч, таны хүлээж буй нөхцөл бүрдэхгүй үед зах зээлээс бага зэрэг холдох цагийг олгоно. Өнөөдрөөс эхлэн өдрийн арилжаанд орж, өдөр бүр зах зээлийг ажиглаж эхлээрэй."}
-            {result === "Swing Trader" &&
-              "Тэвчээр, урт хугацааны алсын хараа бол таны хамгийн том хүч бөгөөд танд swing арилжааны хэв маягт тохиромжтойг илтгэнэ. Та зах зээлийг томоор хар, удаан хугацааны хөдөлгөөнд суурилсан арилжааг хэд хоног, эсвэл бүр хэдэн долоо хоногийн турш барихыг илүүд үздэг. Swing арилжаачид өдөр тутмын үнийн хэлбэлзлээс зайлсхийж, томоохон өөрчлөлтүүд дээр тулгуурлан шийдвэр гаргах нөхцлийг эрдэг. Swing арилжаачны хувьд та дэлгэцээсээ хөндийрч, зах зээл таны хүлээсэн цэг дээр очих боломжийг өгч, чиг хандлагыг нь ажиглан арилжааны төлөвлөгөөгөө гаргана. Энэ арилжааны хэв маяг нь, техник болон суурь шинжилгээнд тулгуурлан тооцоолсон тайван шийдвэр гаргахад үндэслэнэ. Хэрэв та арилжаанд илүү тогтвортой, тайван хандлага барихыг хүсдэг бол Swing арилжаа танд тохирно. Өнөөдрөөс эхлэн swing арилжааны ертөнцөд орж, зах зээлийн томоохон хөдөлгөөнийг барьж аваарай."}
-          </p>
+      <Container>
+        <div className="flex flex-col items-center justify-center">
+          <div className="bg-glass backdrop-blur-lg p-10 rounded-lg shadow-xl">
+            <h2 className="text-2xl font-bold mb-4 text-left">
+              Баяр хүргэе! <br />
+              Танд <span className="text-green-400">{result}</span> хийх нь илүү
+              тохиромжтой!
+            </h2>
+            <div className="flex gap-8 flex-wrap md:flex-nowrap">
+              <div className="bg-glass shadow-md rounded-lg p-4 transition-transform transform hover:scale-105 min-w-[300px]">
+                <div className="h-48 bg-gray-200 rounded-t-lg mb-4 flex items-center justify-center">
+                  <span className="text-gray-400">Image Placeholder</span>
+                </div>
+                <h2 className="text-xl font-semibold mb-2">Simple</h2>
+                <p>
+                  Learn the foundational concepts of Information and
+                  Communication Technology.
+                </p>
+              </div>
+              <p>
+                {result === "Scalper" && (
+                  <div className="grid gap-2">
+                    <div className="flex">
+                      <div className="size-2 min-w-2 m-2 bg-green-400 rounded-full" />
+                      <div>
+                        <span className="text-green-400">Scalper</span> -
+                        Хурдтай орчинд та амжилттай ажилладаг, таны түргэн
+                        шийдвэр гаргах чадвар нь{" "}
+                        <span className="text-green-400">scalping</span>{" "}
+                        арилжаанд тохиромжтой. Энэ арилжааны хэв маяг нь хурд,
+                        нарийвчлал, зах зээлийн жижиг боловч тогтмол боломжуудыг
+                        ашиглахад оршино. Та богино хугацаанд олон арилжаа
+                        хийхэд дуртай бөгөөд аливаа зүйлийг хурдан ойлгож
+                        шийдвэрлэх чадвар тань таны хамгийн том давуу тал байх
+                        болно.
+                      </div>
+                    </div>
+                    <div className="flex">
+                      <div className="size-2 min-w-2 m-2 bg-green-400 rounded-full" />
+                      <div>
+                        <span className="text-green-400">Scalper</span>-н хувьд
+                        та богино хугацааны үнийн өөрчлөлтийг таньж мэдэх,
+                        хурдан арилжаа хийх ур чадвараа хөгжүүлнэ. Энэ нь
+                        сахилга бат, анхаарал төвлөрөл, зах зээлд байнга
+                        анхаарал тавихыг шаарддаг.{" "}
+                        <span className="text-green-400">Scalping</span>
+                        -н хэмнэл нь хурдаг байж болох ч, таны стратеги хурц,
+                        сахилга бат байвал амжилт хурдан ирэх боломжтой.
+                      </div>
+                    </div>
+                    <div className="flex">
+                      <div className="size-2 min-w-2 m-2 bg-green-400 rounded-full" />
+                      <div>
+                        Өнөөдөр <span className="text-green-400">Scalping</span>
+                        -н ертөнцийг судалж эхлээрэй! Энэ бол үнийн богино
+                        хэмжээний өөрчлөлтүүдээс ашиг хүртэх дуртай хүмүүст
+                        тохирсон төгс арилжааны хэв маяг юм.
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {result === "Day Trader" && (
+                  <div className="grid gap-2">
+                    <div className="flex">
+                      <div className="size-2 min-w-2 m-2 bg-green-400 rounded-full" />
+                      <div>
+                        Та тогтсон дэг журамтай ажиллах дуртай бөгөөд үүний
+                        хажуугаар аливаа нөхцөл байдалд бага зэрэг уян хатан
+                        ханддаг. Өдрийн арилжаачны хувьд та өдрийн зах зээлийн
+                        хөдөлгөөн дундаас боломжийг олж харах болно. Та өдөр
+                        бүрийн үнийн хэлбэлзэлд суурилсан шинжилгээгээр арилжаа
+                        хийх тул шөнөөр захиалгаа барьж сэтгэлээ түгшээхгүй
+                        зайлсхийж чадна.
+                      </div>
+                    </div>
+                    <div className="flex">
+                      <div className="size-2 min-w-2 m-2 bg-green-400 rounded-full" />
+                      <div>
+                        Таны төвлөрөл, шийдэмгий зан, богино хугацааны
+                        төлөвлөгөө боловсруулах чадвар тань энэ арилжааны хэв
+                        маягт хамгийн тохиромжтой. Техник болон бодит цагийн
+                        мэдээлэлд тулгуурлан зах зээлийн хэлбэлзлийг ашиглан
+                        арилжаа хийдэг. Өдрийн арилжаачид өдөр бүр шинэ
+                        боломжийг хардаг бөгөөд та зах зээлийн тухайн өдрийн чиг
+                        хандлагад уялдуулан захиалгаа өгнө.
+                      </div>
+                    </div>
+                    <div className="flex">
+                      <div className="size-2 min-w-2 m-2 bg-green-400 rounded-full" />
+                      <div>
+                        Энэ стратеги нь танд өдөр бүр арилжаа хийх боломжийг
+                        олгох хэдий ч, таны хүлээж буй нөхцөл бүрдэхгүй үед зах
+                        зээлээс бага зэрэг холдох цагийг олгоно. Өнөөдрөөс эхлэн
+                        өдрийн арилжаанд орж, өдөр бүр зах зээлийг ажиглаж
+                        эхлээрэй.
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {result === "Swing Trader" && (
+                  <div className="grid gap-2">
+                    <div className="flex">
+                      <div className="size-2 min-w-2 m-2 bg-green-400 rounded-full" />
+                      <div>
+                        Тэвчээр, урт хугацааны алсын хараа бол таны хамгийн том
+                        хүч бөгөөд танд swing арилжааны хэв маягт тохиромжтойг
+                        илтгэнэ. Та зах зээлийг томоор хар, удаан хугацааны
+                        хөдөлгөөнд суурилсан арилжааг хэд хоног, эсвэл бүр хэдэн
+                        долоо хоногийн турш барихыг илүүд үздэг. Swing
+                        арилжаачид өдөр тутмын үнийн хэлбэлзлээс зайлсхийж,
+                        томоохон өөрчлөлтүүд дээр тулгуурлан шийдвэр гаргах
+                        нөхцлийг эрдэг.
+                      </div>
+                    </div>
+                    <div className="flex">
+                      <div className="size-2 min-w-2 m-2 bg-green-400 rounded-full" />
+                      <div>
+                        Swing арилжаачны хувьд та дэлгэцээсээ хөндийрч, зах зээл
+                        таны хүлээсэн цэг дээр очих боломжийг өгч, чиг хандлагыг
+                        нь ажиглан арилжааны төлөвлөгөөгөө гаргана. Энэ
+                        арилжааны хэв маяг нь, техник болон суурь шинжилгээнд
+                        тулгуурлан тооцоолсон тайван шийдвэр гаргахад үндэслэнэ.
+                      </div>
+                    </div>
+                    <div className="flex">
+                      <div className="size-2 min-w-2 m-2 bg-green-400 rounded-full" />
+                      <div>
+                        Хэрэв та арилжаанд илүү тогтвортой, тайван хандлага
+                        барихыг хүсдэг бол Swing арилжаа танд тохирно. Өнөөдрөөс
+                        эхлэн swing арилжааны ертөнцөд орж, зах зээлийн томоохон
+                        хөдөлгөөнийг барьж аваарай.
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
+      </Container>
     );
   }
 
@@ -235,13 +371,15 @@ const QuizComponent = () => {
             <button
               key={index}
               className="w-full bg-white/20 backdrop-blur-md text-left hover:bg-green-400 py-2 px-4 rounded-md mb-3 shadow-md transition-colors duration-300"
-              onClick={() => [handleOptionClick(option.points), setCurrentIndex(index)]}
+              onClick={() => [handleOptionClick(option.points)]}
             >
               {option.text}
             </button>
           ))}
         </div>
-        <div className="absolute right-4 bottom-2">{currentIndex + 1}/{questions.length}</div>
+        <div className="absolute right-4 bottom-2">
+          {questions[currentQuestionIndex].index}/{questions.length}
+        </div>
       </div>
     </div>
   );
