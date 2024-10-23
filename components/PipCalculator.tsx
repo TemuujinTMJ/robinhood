@@ -188,9 +188,9 @@ const PipCalculatorForm = () => {
               </div>
               <div className="bg-gray-800 p-4 rounded-md">
                 <p className=" font-bold">
-                  Эрсдэл ашигийн харьцаа / RR /: 1/ <br />
+                  Эрсдэл ашигийн харьцаа / RR /:  <br />
                   <span className="text-green-400">
-                    {riskRewardRatio?.toFixed(2)}
+                  1 / {riskRewardRatio?.toFixed(2)}
                   </span>
                 </p>
               </div>

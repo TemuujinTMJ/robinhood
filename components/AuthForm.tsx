@@ -57,7 +57,7 @@ export default function AuthForm() {
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleChange}
-                  className="mt-1 block w-full px-4 py-2 bg-glass backdrop-blur-xs border border-gray-300 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="mt-1 block w-full px-4 py-2 bg-glass border border-gray-300 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500"
                   required
                 />
               </div>
@@ -71,7 +71,7 @@ export default function AuthForm() {
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleChange}
-                  className="mt-1 block w-full px-4 py-2 bg-glass backdrop-blur-xs border border-gray-300 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="mt-1 block w-full px-4 py-2 bg-glass border border-gray-300 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500"
                   required
                 />
               </div>
@@ -88,7 +88,7 @@ export default function AuthForm() {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="mt-1 block w-full px-4 py-2 bg-glass backdrop-blur-xs border border-gray-300 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="mt-1 block w-full px-4 py-2 bg-glass border border-gray-300 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500"
                   required
                 />
               </div>
@@ -105,7 +105,7 @@ export default function AuthForm() {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="mt-1 block w-full px-4 py-2 bg-glass backdrop-blur-xs border border-gray-300 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="mt-1 block w-full px-4 py-2 bg-glass border border-gray-300 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500"
               required
             />
           </div>
@@ -120,7 +120,7 @@ export default function AuthForm() {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="mt-1 block w-full px-4 py-2 bg-glass backdrop-blur-xs border border-gray-300 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="mt-1 block w-full px-4 py-2 bg-glass border border-gray-300 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500"
               required
             />
           </div>
@@ -139,7 +139,7 @@ export default function AuthForm() {
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                className="mt-1 block w-full px-4 py-2 bg-glass backdrop-blur-xs border border-gray-300 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="mt-1 block w-full px-4 py-2 bg-glass border border-gray-300 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500"
                 required
               />
             </div>

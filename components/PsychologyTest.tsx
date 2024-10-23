@@ -370,7 +370,7 @@ const QuizComponent = () => {
           {questions[currentQuestionIndex].options.map((option, index) => (
             <button
               key={index}
-              className="w-full bg-white/20 backdrop-blur-md text-left hover:bg-green-400 py-2 px-4 rounded-md mb-3 shadow-md transition-colors duration-300"
+              className="w-full bg-white/20 text-left hover:bg-green-400 py-2 px-4 rounded-md mb-3 shadow-md transition-colors duration-300"
               onClick={() => [handleOptionClick(option.points)]}
             >
               {option.text}
