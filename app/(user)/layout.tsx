@@ -1,3 +1,5 @@
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 import { Play } from "next/font/google";
 
 const play = Play({
@@ -19,7 +21,11 @@ export default function RootLayout({
       </head>
       <body className="bg-gray-900 text-white min-h-screen">
         <div className={play.className}>
-          <main className="pt-24">{children}</main>
+          <Navbar />
+          <div className="flex flex-col justify-between h-screen">
+            <main className="pt-24">{children}</main>
+            <Footer />
+          </div>
         </div>
       </body>
     </html>
