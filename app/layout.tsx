@@ -1,8 +1,9 @@
 import { Play } from "next/font/google";
+import Providers from "@/boot/Providers";
 
 const play = Play({
-  weight: ["400", "700"], // Specify the font weights you need
-  subsets: ["latin"], // Ensure the correct character subset is used
+  weight: ["400", "700"],
+  subsets: ["latin"],
 });
 
 import "./globals.css";
@@ -19,7 +20,9 @@ export default function RootLayout({
       </head>
       <body className="bg-gray-900 text-white min-h-screen">
         <div className={play.className}>
-          <main className="pt-24">{children}</main>
+          <Providers>
+            <main>{children}</main>
+          </Providers>
         </div>
       </body>
     </html>
