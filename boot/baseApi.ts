@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 export const token = Cookies.get("accessToken") || null;
 
 const axiosConfig = {
-  baseURL: "https://robinhood.mn/api/",
+  baseURL: "https://robinhood.mn/back/api/v1",
   timeout: 30000,
 };
 
