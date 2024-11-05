@@ -2,7 +2,7 @@
 import { api } from "@/boot/baseApi";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const Login = createAsyncThunk("/login", async (data: object) => {
-  const url = `/login`;
+export const SignUp = createAsyncThunk("/user/create", async (data: object) => {
+  const url = `/user/create`;
   return api.post(url, data).then((response) => response);
 });

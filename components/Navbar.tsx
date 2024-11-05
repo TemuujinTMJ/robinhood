@@ -2,22 +2,40 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import Logo from '@/public/Logo.svg'
+import Logo from "@/public/Logo.svg";
 import Image from "next/image";
-const links = [
-  { href: "/pip-calculator", label: "LOT Size тооцоолуур" },
-  { href: "/psychology-test", label: "Сэтгэлзүйн тест" },
-  { href: "/courses", label: "Хичээлүүд" },
-  { href: "/forex", label: "Forex гэж юу вэ?" },
-  { href: "/auth", label: "Нэвтрэх / Бүртгүүлэх" },
-];
+import { useAuth } from "@/context/AuthProvider";
+import { Button } from "antd";
 
 export default function Navbar() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const path = usePathname()
-
+  const path = usePathname();
+  const { isAuthenticated, user, logout } = useAuth();
+  console.log(user, 'nav')
+  const links = [
+    { href: "/pip-calculator", label: "LOT Size тооцоолуур" },
+    { href: "/psychology-test", label: "Сэтгэлзүйн тест" },
+    { href: "/courses", label: "Хичээлүүд" },
+    { href: "/forex", label: "Forex гэж юу вэ?" },
+    {
+      href: "/login",
+      label: isAuthenticated ? (
+        <div>
+          {user.email} <Button onClick={() => logout()}>Logout</Button>
+        </div>
+      ) : (
+        "Нэвтрэх / Бүртгүүлэх"
+      ),
+    },
+  ];
+  if (user?.role === 1) {
+    links.unshift({
+      href: "/admin",
+      label: "Dashboard",
+    });
+  }
   const toggleDrawer = () => {
     setIsDrawerOpen((prev) => !prev);
   };
@@ -56,12 +74,12 @@ export default function Navbar() {
       <Link
         key={link.href}
         href={link.href}
-        className={`relative ${path === link.href ? "text-green-400" : "text-white"} hover:text-green-400 transition duration-300`}
+        className={`relative ${
+          path === link.href ? "text-green-400" : "text-white"
+        } hover:text-green-400 transition duration-300`}
         onClick={onClick}
       >
-        <span
-          className="pb-1 hover:border-b-4 hover:border-green-400 transition-all duration-300 before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-green-400 before:transition-all before:duration-300 hover:before:w-full"
-        >
+        <span className="pb-1 hover:border-b-4 hover:border-green-400 transition-all duration-300 before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-green-400 before:transition-all before:duration-300 hover:before:w-full">
           {link.label}
         </span>
       </Link>
@@ -77,7 +95,9 @@ export default function Navbar() {
       >
         <div className="mx-8 flex justify-between items-center">
           <div className="text-2xl font-bold text-white">
-            <Link href="/"><Image src={Logo} alt="logo" height={60} width={200} /></Link>
+            <Link href="/">
+              <Image src={Logo} alt="logo" height={60} width={200} />
+            </Link>
           </div>
           <div className="hidden md:flex space-x-6">{renderLinks()}</div>
 

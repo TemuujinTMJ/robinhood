@@ -7,6 +7,7 @@ const play = Play({
 });
 
 import "./globals.css";
+import { AuthProvider } from "@/context/AuthProvider";
 
 export default function RootLayout({
   children,
@@ -21,7 +22,9 @@ export default function RootLayout({
       <body className="bg-gray-900 text-white min-h-screen">
         <div className={play.className}>
           <Providers>
+          <AuthProvider>
             <main>{children}</main>
+          </AuthProvider>
           </Providers>
         </div>
       </body>
