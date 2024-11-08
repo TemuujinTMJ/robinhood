@@ -1,12 +1,13 @@
 "use client";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { SignUp } from "./signup.service";
+import { message } from "antd";
+import { useRouter } from "next/navigation";
 
 const initialState = {
   loading: false,
   user: null,
 };
-
 const userSignUp = createSlice({
   name: "signup",
   initialState,
@@ -20,12 +21,12 @@ const userSignUp = createSlice({
       state.loading = false;
       state.user = action.payload?.user || null;
 
-      // Save the token to local storage
       if (action.payload?.success) {
-        localStorage.setItem("token", action.payload?.token); // Save token to localStorage
-        alert('Амжилттай бүртгэгдлээ')
+        localStorage.setItem("token", action.payload?.token); 
+        message.success('Амжилттай бүртгэгдлээ')
+        window.location.replace('/login')
       } else {
-        alert(action.payload.error);
+        message.success(action.payload.error);
 
       }
 

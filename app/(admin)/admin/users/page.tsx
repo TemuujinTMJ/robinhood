@@ -20,19 +20,25 @@ export default function Users() {
       key: "No",
       title: "No",
       dataIndex: "id",
+      width: 50,
       render: (item: unknown, record: unknown, index: number) => (
         <div>{index + 1}</div>
       ),
     },
     {
-      key: "id",
-      title: "id",
-      dataIndex: "id",
-    },
-    {
       key: "first_name",
       title: "First Name",
       dataIndex: "first_name",
+    },
+    {
+      key: "last_name",
+      title: "Last Name",
+      dataIndex: "last_name",
+    },
+    {
+      key: "id",
+      title: "id",
+      dataIndex: "id",
     },
     {
       key: "email",

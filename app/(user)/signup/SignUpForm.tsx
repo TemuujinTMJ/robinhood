@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "@/services/hooks";
 import { SignUp } from "@/services/modules/auth/signup.service";
 import { useState } from "react";
 import Link from "next/link";
+import { Spin } from "antd";
 
 export default function SignUpForm() {
   const [formData, setFormData] = useState({
@@ -159,7 +160,7 @@ export default function SignUpForm() {
             disabled={loading}
             className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 rounded-lg transition duration-300"
           >
-            Бүртгүүлэх
+            {loading && <Spin />} Бүртгүүлэх
           </button>
         </form>
 

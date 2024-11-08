@@ -1,6 +1,6 @@
 "use client";
+import Container from "@/components/container";
 import { useState } from "react";
-import Container from "./container";
 
 const currencyPairsWithCoefficients: { [key: string]: number } = {
   "AUD/CAD": 7.26,

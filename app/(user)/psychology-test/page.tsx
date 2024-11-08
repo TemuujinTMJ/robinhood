@@ -1,5 +1,5 @@
-import PsychologyTest from "@/components/PsychologyTest";
+import QuizComponent from "./PsychologyTest";
 
 export default function Psychology() {
-  return <PsychologyTest />;
+  return <QuizComponent />;
 }

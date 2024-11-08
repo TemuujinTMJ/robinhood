@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "@/services/hooks";
 import { Login } from "@/services/modules/auth/login.service";
 import { useState } from "react";
 import Link from "next/link";
+import { Spin } from "antd";
 
 export default function LoginForm() {
   const [formData, setFormData] = useState({
@@ -82,7 +83,7 @@ export default function LoginForm() {
             disabled={loading}
             className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 rounded-lg transition duration-300"
           >
-            Нэвтрэх
+            {loading && <Spin />} Нэвтрэх
           </button>
         </form>
 

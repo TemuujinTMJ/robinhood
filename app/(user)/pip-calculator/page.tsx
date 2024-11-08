@@ -1,4 +1,4 @@
-import PipCalculatorForm from "@/components/PipCalculator";
+import PipCalculatorForm from "./PipCalculator";
 
 export default function LotPipCalculator() {
   return <PipCalculatorForm />;

@@ -13,7 +13,7 @@ export default function Navbar() {
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const { user, loadingUser } = useAppSelector((state) => state.FetchUser);
-  
+
   const path = usePathname();
   const links = [
     { href: "/pip-calculator", label: "LOT Size тооцоолуур" },
@@ -22,14 +22,7 @@ export default function Navbar() {
     { href: "/forex", label: "Forex гэж юу вэ?" },
     {
       href: user ? "/profile" : "/login",
-      label: user ? (
-        <div>
-          {user.email}{" "}
-          <Button onClick={() => Cookies.remove("token")}>Logout</Button>
-        </div>
-      ) : (
-        "Нэвтрэх / Бүртгүүлэх"
-      ),
+      label: user ? user.email : "Нэвтрэх / Бүртгүүлэх",
     },
   ];
   if (user?.role === 1) {
@@ -44,9 +37,9 @@ export default function Navbar() {
 
   useEffect(() => {
     if (isDrawerOpen) {
-      document.body.classList.add("overflow-hidden"); 
+      document.body.classList.add("overflow-hidden");
     } else {
-      document.body.classList.remove("overflow-hidden"); 
+      document.body.classList.remove("overflow-hidden");
     }
 
     return () => {
@@ -70,7 +63,7 @@ export default function Navbar() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [lastScrollY]);
-  if(loadingUser) return <>laoding</>
+  if (loadingUser) return <>laoding</>;
   const renderLinks = (onClick?: () => void) => {
     return links.map((link) => (
       <Link
@@ -101,7 +94,19 @@ export default function Navbar() {
               <Image src={Logo} alt="logo" height={60} width={200} />
             </Link>
           </div>
-          <div className="hidden md:flex space-x-6">{renderLinks()}</div>
+          <div className="hidden md:flex space-x-6">
+            {renderLinks()}
+            {user && (
+              <Button
+                ghost
+                type="text"
+                href="/login"
+                onClick={() => Cookies.remove("token")}
+              >
+                Logout
+              </Button>
+            )}
+          </div>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden">
