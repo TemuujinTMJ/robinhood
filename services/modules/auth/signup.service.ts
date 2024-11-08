@@ -4,5 +4,5 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const SignUp = createAsyncThunk("/user/create", async (data: object) => {
   const url = `/user/create`;
-  return api.post(url, data).then((response) => response);
+  return api.post(url, data).then((response) => response.data);
 });

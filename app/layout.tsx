@@ -7,13 +7,14 @@ const play = Play({
 });
 
 import "./globals.css";
-import { AuthProvider } from "@/context/AuthProvider";
+import Auth from "./auth";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+
   return (
     <html lang="en">
       <head>
@@ -22,9 +23,9 @@ export default function RootLayout({
       <body className="bg-gray-900 text-white min-h-screen">
         <div className={play.className}>
           <Providers>
-          <AuthProvider>
-            <main>{children}</main>
-          </AuthProvider>
+            <Auth>
+              <main>{children}</main>
+            </Auth>
           </Providers>
         </div>
       </body>

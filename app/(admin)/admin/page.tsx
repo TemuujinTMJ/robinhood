@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function AdminHome() {
-  return <div>admin</div>;
+  return <div>Welcome bitch!!!</div>;
 }

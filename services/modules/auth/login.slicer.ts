@@ -1,10 +1,10 @@
 "use client";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Login } from "./login.service";
+import Cookies from "js-cookie";
 
 const initialState = {
   loading: false,
-  user: null,
 };
 
 const userLogin = createSlice({
@@ -18,12 +18,11 @@ const userLogin = createSlice({
 
     builder.addCase(Login.fulfilled, (state, action: PayloadAction<any>) => {
       state.loading = false;
-      state.user = action.payload?.user || null;
-
+      console.log(action.payload)
       if(action.payload.success) {
         const token = action.payload?.token;
       if (token) {
-        localStorage.setItem("token", token);
+        Cookies.set('token', token)
         window.location.replace('/')
       }
       } else {
@@ -33,7 +32,6 @@ const userLogin = createSlice({
 
     builder.addCase(Login.rejected, (state) => {
       state.loading = false;
-      state.user = null;
     });
   },
 });

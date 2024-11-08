@@ -4,26 +4,28 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Logo from "@/public/Logo.svg";
 import Image from "next/image";
-import { useAuth } from "@/context/AuthProvider";
 import { Button } from "antd";
+import { useAppSelector } from "@/services/hooks";
+import Cookies from "js-cookie";
 
 export default function Navbar() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const { user, loadingUser } = useAppSelector((state) => state.FetchUser);
+  
   const path = usePathname();
-  const { isAuthenticated, user, logout } = useAuth();
-  console.log(user, 'nav')
   const links = [
     { href: "/pip-calculator", label: "LOT Size тооцоолуур" },
     { href: "/psychology-test", label: "Сэтгэлзүйн тест" },
     { href: "/courses", label: "Хичээлүүд" },
     { href: "/forex", label: "Forex гэж юу вэ?" },
     {
-      href: "/login",
-      label: isAuthenticated ? (
+      href: user ? "/profile" : "/login",
+      label: user ? (
         <div>
-          {user.email} <Button onClick={() => logout()}>Logout</Button>
+          {user.email}{" "}
+          <Button onClick={() => Cookies.remove("token")}>Logout</Button>
         </div>
       ) : (
         "Нэвтрэх / Бүртгүүлэх"
@@ -42,9 +44,9 @@ export default function Navbar() {
 
   useEffect(() => {
     if (isDrawerOpen) {
-      document.body.classList.add("overflow-hidden"); // Prevent scrolling
+      document.body.classList.add("overflow-hidden"); 
     } else {
-      document.body.classList.remove("overflow-hidden"); // Allow scrolling
+      document.body.classList.remove("overflow-hidden"); 
     }
 
     return () => {
@@ -68,7 +70,7 @@ export default function Navbar() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [lastScrollY]);
-
+  if(loadingUser) return <>laoding</>
   const renderLinks = (onClick?: () => void) => {
     return links.map((link) => (
       <Link
