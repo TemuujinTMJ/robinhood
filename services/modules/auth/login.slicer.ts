@@ -18,7 +18,6 @@ const userLogin = createSlice({
 
     builder.addCase(Login.fulfilled, (state, action: PayloadAction<any>) => {
       state.loading = false;
-      console.log(action.payload)
       if(action.payload.success) {
         const token = action.payload?.token;
       if (token) {

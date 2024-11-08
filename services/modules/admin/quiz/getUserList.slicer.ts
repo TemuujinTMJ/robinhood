@@ -19,7 +19,6 @@ const adminUserList = createSlice({
 
     builder.addCase(GetAdminUserList.fulfilled, (state, action: PayloadAction<any>) => {
       state.loading = false;
-      console.log(action.payload)
       state.users = action.payload.users
     });
 

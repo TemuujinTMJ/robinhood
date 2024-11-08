@@ -1,8 +1,13 @@
 "use client";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { fetchUser } from "./user.service";
+import { User } from "@/types/types";
 
-const initialState = {
+interface UserState {
+  loadingUser: boolean;
+  user: User | null;
+}
+const initialState: UserState = {
   loadingUser: false,
   user: null
 };
@@ -16,9 +21,10 @@ const userSlice = createSlice({
       .addCase(fetchUser.pending, (state) => {
         state.loadingUser = true;
       })
-      .addCase(fetchUser.fulfilled, (state, action: PayloadAction<any>) => {
+      .addCase(fetchUser.fulfilled, (state, action: PayloadAction<User>) => {
         state.loadingUser = false;
         state.user = action.payload;
+        console.log(action.payload)
       })
       .addCase(fetchUser.rejected, (state) => {
         state.loadingUser = false;

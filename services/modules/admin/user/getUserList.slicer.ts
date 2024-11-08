@@ -2,10 +2,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
 import { GetAdminUserList } from "./getUserList.service";
+import { User } from "@/types/types";
 
-const initialState = {
-  loading: false,
-  users: []
+interface UsersState {
+  loadingUsers: boolean;
+  users: User[] | null;
+}
+
+const initialState: UsersState = {
+  loadingUsers: false,
+  users: null
 };
 
 const adminUserList = createSlice({
@@ -14,17 +20,16 @@ const adminUserList = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(GetAdminUserList.pending, (state) => {
-      state.loading = true;
+      state.loadingUsers = true;
     });
 
     builder.addCase(GetAdminUserList.fulfilled, (state, action: PayloadAction<any>) => {
-      state.loading = false;
-      console.log(action.payload)
+      state.loadingUsers = false;
       state.users = action.payload.users
     });
 
     builder.addCase(GetAdminUserList.rejected, (state) => {
-      state.loading = false;
+      state.loadingUsers = false;
     });
   },
 });

@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '@/services/hooks';
 import { fetchUser } from '@/services/modules/auth/user.service';
 import { usePathname, useRouter } from 'next/navigation';
 
-export default function ({ children }: {
+export default function Auth ({ children }: {
   children: React.ReactNode;
 }) {
   const token = Cookies.get('token');

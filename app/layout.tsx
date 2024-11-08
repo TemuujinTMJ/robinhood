@@ -1,5 +1,5 @@
 import { Play } from "next/font/google";
-import Providers from "@/boot/Providers";
+import Providers from "@/context/Providers";
 
 const play = Play({
   weight: ["400", "700"],

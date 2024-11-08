@@ -1,25 +1,28 @@
 "use client";
-import { useAppSelector } from "@/services/hooks";
+import { useAppDispatch, useAppSelector } from "@/services/hooks";
 import { GetAdminUserList } from "@/services/modules/admin/user/getUserList.service";
+import { User } from "@/types/types";
 import { Table } from "antd";
 import dayjs from "dayjs";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 
 export default function Users() {
-  const dispatch = useDispatch();
-  const { users, loading } = useAppSelector((state) => state.GetAdminUsers);
+  const dispatch = useAppDispatch();
+  const { users, loadingUsers } = useAppSelector(
+    (state) => state.GetAdminUsers
+  );
   useEffect(() => {
     dispatch(GetAdminUserList());
   }, []);
-  console.log(users[0]);
 
   const columns = [
     {
       key: "No",
       title: "No",
       dataIndex: "id",
-      render: (item: unknown, record: unknown, index: number) => <div>{index + 1}</div>,
+      render: (item: unknown, record: unknown, index: number) => (
+        <div>{index + 1}</div>
+      ),
     },
     {
       key: "id",
@@ -75,7 +78,12 @@ export default function Users() {
   ];
   return (
     <div>
-      <Table dataSource={users} columns={columns} loading={loading} />
+      <Table
+        dataSource={users as User[]}
+        columns={columns}
+        loading={loadingUsers}
+        rowKey={(record) => record?.id}
+      />
     </div>
   );
 }
