@@ -98,7 +98,6 @@ export default function Navbar() {
             {renderLinks()}
             {user && (
               <Button
-                ghost
                 type="text"
                 href="/login"
                 onClick={() => Cookies.remove("token")}

@@ -2,7 +2,7 @@
 import { useAppDispatch, useAppSelector } from "@/services/hooks";
 import { GetAdminUserList } from "@/services/modules/admin/user/getUserList.service";
 import { User } from "@/types/types";
-import { Table } from "antd";
+import { Button, Table } from "antd";
 import dayjs from "dayjs";
 import { useEffect } from "react";
 
@@ -80,6 +80,17 @@ export default function Users() {
       title: "Created At",
       dataIndex: "created_at",
       render: (e: string) => dayjs(e).format("YYYY-MM-DD"),
+    },
+    {
+      key: "action",
+      title: "Action",
+      dataIndex: "id",
+      render: (e: number) => (
+        <div className="flex gap-1 flex-nowrap">
+          <Button>edit</Button>
+          <Button onClick={() => console.log(e)}>udpate</Button>
+        </div>
+      ),
     },
   ];
   return (

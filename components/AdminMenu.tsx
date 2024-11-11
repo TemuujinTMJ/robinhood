@@ -28,7 +28,7 @@ const AdminMenu: React.FC = () => {
     <div style={{ width: 256 }}>
       <Menu
         className='h-screen'
-        defaultSelectedKeys={['1']}
+        defaultSelectedKeys={['0']}
         defaultOpenKeys={['sub1']}
         mode="inline"
         theme="dark"

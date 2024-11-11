@@ -1,11 +1,10 @@
 "use client";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import Cookies from "js-cookie";
-import { GetAdminUserList } from "./getUserList.service";
+import { GetAdminQuizList } from "./getQuizList.service";
 
 const initialState = {
   loading: false,
-  users: []
+  quiz: []
 };
 
 const adminUserList = createSlice({
@@ -13,16 +12,16 @@ const adminUserList = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(GetAdminUserList.pending, (state) => {
+    builder.addCase(GetAdminQuizList.pending, (state) => {
       state.loading = true;
     });
 
-    builder.addCase(GetAdminUserList.fulfilled, (state, action: PayloadAction<any>) => {
+    builder.addCase(GetAdminQuizList.fulfilled, (state, action: PayloadAction<any>) => {
       state.loading = false;
-      state.users = action.payload.users
+      state.quiz = action.payload
     });
 
-    builder.addCase(GetAdminUserList.rejected, (state) => {
+    builder.addCase(GetAdminQuizList.rejected, (state) => {
       state.loading = false;
     });
   },

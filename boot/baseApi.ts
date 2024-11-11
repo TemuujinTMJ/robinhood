@@ -24,6 +24,9 @@ api.interceptors.response.use(
     if (error?.response?.status === 400) {
       window.location.assign("/");
     }
+    if (error?.response?.status === 401) {
+      Cookies.remove("token")
+    }
     message.error(error);
 
     return Promise.reject(error);
