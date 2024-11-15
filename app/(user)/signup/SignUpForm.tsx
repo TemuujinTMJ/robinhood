@@ -3,7 +3,8 @@ import { useAppDispatch, useAppSelector } from "@/services/hooks";
 import { SignUp } from "@/services/modules/auth/signup.service";
 import { useState } from "react";
 import Link from "next/link";
-import { Spin } from "antd";
+import { message, Spin } from "antd";
+import { useRouter } from "next/navigation";
 
 export default function SignUpForm() {
   const [formData, setFormData] = useState({
@@ -16,7 +17,7 @@ export default function SignUpForm() {
   });
   const dispatch = useAppDispatch();
   const { loading } = useAppSelector((state) => state.SignUpReducer);
-
+  const router = useRouter()
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -27,7 +28,14 @@ export default function SignUpForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(SignUp(formData));
+    dispatch(SignUp(formData)).then((e) => {
+      if(e.payload.success) {
+        message.success('Амжилттай бүртгэгдлээ!')
+        router.replace('/login')
+      } else {
+        message.error(e.payload.response)
+      }
+    })
   };
 
   return (

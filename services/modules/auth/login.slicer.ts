@@ -18,14 +18,11 @@ const userLogin = createSlice({
 
     builder.addCase(Login.fulfilled, (state, action: PayloadAction<any>) => {
       state.loading = false;
-      if(action.payload.success) {
+      if (action.payload.success) {
         const token = action.payload?.token;
-      if (token) {
-        Cookies.set('token', token)
-        window.location.replace('/')
-      }
-      } else {
-        alert('Хэрэглэгч олдсонгүй')
+        if (token) {
+          Cookies.set("token", token);
+        }
       }
     });
 

@@ -12,7 +12,6 @@ const AntdProvider: React.FunctionComponent<React.PropsWithChildren> = ({
 
   useServerInsertedHTML(() => {
     return (
-      // eslint-disable-next-line @eslint-react/dom/no-dangerously-set-innerhtml
       <script
         dangerouslySetInnerHTML={{
           __html: `</script>${extractStyle(cache)}<script>`,

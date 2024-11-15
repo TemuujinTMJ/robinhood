@@ -1,6 +1,5 @@
 "use client";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import Cookies from "js-cookie";
 import { GetAdminUserList } from "./getUserList.service";
 import { User } from "@/types/types";
 

@@ -1,6 +1,6 @@
 "use client";
 import Header from "@/components/Header";
-import { useAppDispatch } from "@/services/hooks";
+import { useAppDispatch, useAppSelector } from "@/services/hooks";
 import { GetCourseList } from "@/services/modules/admin/course/getCourseList.service";
 import { Button, Table } from "antd";
 import dayjs from "dayjs";
@@ -8,6 +8,7 @@ import React, { useEffect } from "react";
 
 export default function Quiz() {
   const dispatch = useAppDispatch();
+  const { courses, loading} = useAppSelector((state) => state.GetCourseList)
   useEffect(() => {
     dispatch(GetCourseList());
   }, []);
@@ -94,7 +95,7 @@ export default function Quiz() {
   return (
     <div>
       <Header title="Courses" extra="extra" />
-      <Table columns={columns}/>
+      <Table columns={columns} loading={loading} dataSource={courses} />
     </div>
   );
 }

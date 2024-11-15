@@ -24,7 +24,6 @@ const userSlice = createSlice({
       .addCase(fetchUser.fulfilled, (state, action: PayloadAction<User>) => {
         state.loadingUser = false;
         state.user = action.payload;
-        console.log(action.payload)
       })
       .addCase(fetchUser.rejected, (state) => {
         state.loadingUser = false;

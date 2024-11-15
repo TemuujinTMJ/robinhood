@@ -3,16 +3,17 @@ import { useAppDispatch, useAppSelector } from "@/services/hooks";
 import { Login } from "@/services/modules/auth/login.service";
 import { useState } from "react";
 import Link from "next/link";
-import { Spin } from "antd";
+import { message, Spin } from "antd";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const router = useRouter()
   const dispatch = useAppDispatch();
   const { loading } = useAppSelector((state) => state.LoginReducer);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -23,7 +24,14 @@ export default function LoginForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(Login({ email: formData.email, password: formData.password }));
+    dispatch(Login({ email: formData.email, password: formData.password })).then((e) => {
+      if(e.payload.success) {
+        message.success('Амжилттай Нэвтэрлээ!')
+        router.replace('/')
+      } else {
+        message.error(e.payload.error)
+      }
+    })
   };
 
   return (
