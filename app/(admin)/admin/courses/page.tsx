@@ -2,17 +2,18 @@
 import Header from "@/components/Header";
 import { useAppDispatch, useAppSelector } from "@/services/hooks";
 import { GetCourseList } from "@/services/modules/admin/course/getCourseList.service";
-import { Button, Table } from "antd";
+import { Button, Drawer, Form, Input, Table } from "antd";
 import dayjs from "dayjs";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Quiz() {
   const dispatch = useAppDispatch();
   const { courses, loading} = useAppSelector((state) => state.GetCourseList)
+  const [isOpen, setIsOpen] = useState(false)
   useEffect(() => {
     dispatch(GetCourseList());
   }, []);
-
+  console.log(courses)
   const columns = [
     {
       key: "No",
@@ -94,8 +95,15 @@ export default function Quiz() {
 
   return (
     <div>
-      <Header title="Courses" extra="extra" />
-      <Table columns={columns} loading={loading} dataSource={courses} />
+      <Header title="Courses" extra={<Button onClick={() => setIsOpen(true)}>Add Course</Button>} />
+      <Table columns={columns} loading={loading}  />
+      <Drawer open={isOpen} onClose={() => setIsOpen(false)}>
+        <Form layout="vertical">
+          <Form.Item name="name" label="Name">
+            <Input />
+          </Form.Item>
+        </Form>
+      </Drawer>
     </div>
   );
 }
