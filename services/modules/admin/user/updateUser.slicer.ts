@@ -1,16 +1,13 @@
 "use client";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { UpdateAdminUser } from "./updateUser.service";
-import { User } from "@/types/types";
 
 interface UsersState {
-  loadingUsers: boolean;
-  users: User[] | null;
+  loadingUpdateUsers: boolean;
 }
 
 const initialState: UsersState = {
-  loadingUsers: false,
-  users: null
+  loadingUpdateUsers: false,
 };
 
 const adminUserList = createSlice({
@@ -19,16 +16,15 @@ const adminUserList = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(UpdateAdminUser.pending, (state) => {
-      state.loadingUsers = true;
+      state.loadingUpdateUsers = true;
     });
 
-    builder.addCase(UpdateAdminUser.fulfilled, (state, action: PayloadAction<any>) => {
-      state.loadingUsers = false;
-      state.users = action.payload.users
+    builder.addCase(UpdateAdminUser.fulfilled, (state) => {
+      state.loadingUpdateUsers = false;
     });
 
     builder.addCase(UpdateAdminUser.rejected, (state) => {
-      state.loadingUsers = false;
+      state.loadingUpdateUsers = false;
     });
   },
 });

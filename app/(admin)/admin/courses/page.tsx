@@ -8,12 +8,12 @@ import React, { useEffect, useState } from "react";
 
 export default function Quiz() {
   const dispatch = useAppDispatch();
-  const { courses, loading} = useAppSelector((state) => state.GetCourseList)
-  const [isOpen, setIsOpen] = useState(false)
+  const { courses, loading } = useAppSelector((state) => state.GetCourseList);
+  const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
     dispatch(GetCourseList());
   }, []);
-  console.log(courses)
+  console.log(courses);
   const columns = [
     {
       key: "No",
@@ -95,8 +95,11 @@ export default function Quiz() {
 
   return (
     <div>
-      <Header title="Courses" extra={<Button onClick={() => setIsOpen(true)}>Add Course</Button>} />
-      <Table columns={columns} loading={loading}  />
+      <Header
+        title="Courses"
+        extra={<Button onClick={() => setIsOpen(true)}>Add Course</Button>}
+      />
+      <Table columns={columns} loading={loading} />
       <Drawer open={isOpen} onClose={() => setIsOpen(false)}>
         <Form layout="vertical">
           <Form.Item name="name" label="Name">
