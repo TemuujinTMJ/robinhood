@@ -12,6 +12,7 @@ import DeleteCourse from "./modules/admin/course/deleteCourse.slicer"
 import CreateCourse from "./modules/admin/course/createCourse.slicer"
 //quiz
 import GetQuizList from "./modules/admin/course/getCourseList.slicer"
+import GetPipPairs from "./modules/user/pip-calculator/getPipCurrencyPair.slicer"
 
 const rootReducer = combineReducers({
   LoginReducer,
@@ -24,6 +25,8 @@ const rootReducer = combineReducers({
   DeleteCourse,
   CreateCourse,
   //quiz
-  GetQuizList
+  GetQuizList,
+  //pip currency
+  GetPipPairs
 });
 export default rootReducer;

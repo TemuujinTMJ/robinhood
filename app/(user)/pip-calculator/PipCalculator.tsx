@@ -1,40 +1,49 @@
 "use client";
 import Container from "@/components/container";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { GetPipPairList } from "@/services/modules/user/pip-calculator/getPipCurrencyPair.service";
+import { useAppDispatch, useAppSelector } from "@/services/hooks";
 
-const currencyPairsWithCoefficients: { [key: string]: number } = {
-  "AUD/CAD": 7.26,
-  "AUD/CHF": 11.66,
-  "AUD/NZD": 6.1,
-  "AUD/USD": 10,
-  "CAD/CHF": 11.66,
-  "CAD/JPY": 6.71,
-  "CHF/JPY": 6.71,
-  "EUR/AUD": 6.74,
-  "EUR/CAD": 7.26,
-  "EUR/CHF": 11.66,
-  "EUR/GBP": 13.07,
-  "EUR/JPY": 6.71,
-  "EUR/NZD": 6.1,
-  "EUR/USD": 10,
-  "GBP/AUD": 6.74,
-  "GBP/CAD": 7.26,
-  "GBP/CHF": 11.66,
-  "GBP/JPY": 6.71,
-  "GBP/NZD": 6.1,
-  "GBP/USD": 10,
-  "NZD/CAD": 7.26,
-  "NZD/CHF": 11.26,
-  "NZD/USD": 10,
-  "USD/CAD": 7.26,
-  "USD/CHF": 11.66,
-  "USD/JPY": 6.71,
-  "XAU/USD": 10,
-  US30: 1,
-  NAS100: 1,
-};
+// const currencyPairsWithCoefficients: { [key: string]: number } = {
+//   "AUD/CAD": 7.26,
+//   "AUD/CHF": 11.66,
+//   "AUD/NZD": 6.1,
+//   "AUD/USD": 10,
+//   "CAD/CHF": 11.66,
+//   "CAD/JPY": 6.71,
+//   "CHF/JPY": 6.71,
+//   "EUR/AUD": 6.74,
+//   "EUR/CAD": 7.26,
+//   "EUR/CHF": 11.66,
+//   "EUR/GBP": 13.07,
+//   "EUR/JPY": 6.71,
+//   "EUR/NZD": 6.1,
+//   "EUR/USD": 10,
+//   "GBP/AUD": 6.74,
+//   "GBP/CAD": 7.26,
+//   "GBP/CHF": 11.66,
+//   "GBP/JPY": 6.71,
+//   "GBP/NZD": 6.1,
+//   "GBP/USD": 10,
+//   "NZD/CAD": 7.26,
+//   "NZD/CHF": 11.26,
+//   "NZD/USD": 10,
+//   "USD/CAD": 7.26,
+//   "USD/CHF": 11.66,
+//   "USD/JPY": 6.71,
+//   "XAU/USD": 10,
+//   US30: 1,
+//   NAS100: 1,
+// };
 
 const PipCalculatorForm = () => {
+  const dispatch = useAppDispatch();
+  const { pipPairs, loaloadingPipPairsdingUsers } = useAppSelector(
+    (state) => state.GetPipPairs
+  );
+
+  const [currencyPairsWithCoefficients, setCurrencyPairsWithCoefficients] =
+    useState<{ [key: string]: number }>({});
   const [pair, setPair] = useState<string>("EUR/USD");
   const [accountSize, setAccountSize] = useState<number>(1);
   const [riskPercent, setRiskPercent] = useState<number>(1);
@@ -45,6 +54,16 @@ const PipCalculatorForm = () => {
   const [potentialProfit, setPotentialProfit] = useState<number>(1);
   const [riskRewardRatio, setRiskRewardRatio] = useState<number>(1);
   const [balanceAfterLoss, setBalanceAfterLoss] = useState<number>(1);
+
+  useEffect(() => {
+    dispatch(GetPipPairList());
+
+    if (pipPairs) {
+      setCurrencyPairsWithCoefficients(pipPairs);
+    }
+  }, []);
+
+  useEffect(() => {}, [currencyPairsWithCoefficients]);
 
   const handleCalculate = () => {
     const coefficient = currencyPairsWithCoefficients[pair] || 1;
@@ -188,9 +207,9 @@ const PipCalculatorForm = () => {
               </div>
               <div className="bg-gray-800 p-4 rounded-md">
                 <p className=" font-bold">
-                  Эрсдэл ашигийн харьцаа / RR /:  <br />
+                  Эрсдэл ашигийн харьцаа / RR /: <br />
                   <span className="text-green-400">
-                  1 / {riskRewardRatio?.toFixed(2)}
+                    1 / {riskRewardRatio?.toFixed(2)}
                   </span>
                 </p>
               </div>
