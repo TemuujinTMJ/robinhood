@@ -6,11 +6,13 @@ import { User } from "@/types/types";
 interface UsersState {
   loadingUsers: boolean;
   users: User[] | null;
+  total: number;
 }
 
 const initialState: UsersState = {
   loadingUsers: false,
-  users: null
+  users: null,
+  total: 0
 };
 
 const adminUserList = createSlice({
@@ -25,6 +27,7 @@ const adminUserList = createSlice({
     builder.addCase(GetAdminUserList.fulfilled, (state, action: PayloadAction<any>) => {
       state.loadingUsers = false;
       state.users = action.payload.users
+      state.total = action.payload.total_count
     });
 
     builder.addCase(GetAdminUserList.rejected, (state) => {
