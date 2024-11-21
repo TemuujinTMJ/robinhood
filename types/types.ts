@@ -10,4 +10,9 @@ export interface User {
     subscription_type: number;
     trading_account: number;
     xp: number;
-  } 
+  }
+
+  export interface PipPair {
+    pair: string;
+    coefficient: number;
+  }

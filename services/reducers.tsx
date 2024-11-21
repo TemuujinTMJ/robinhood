@@ -14,6 +14,7 @@ import UpdateCourse from "./modules/admin/course/updateCourse.slicer"
 import DeleteCourse from "./modules/admin/course/deleteCourse.slicer"
 import CreateCourse from "./modules/admin/course/createCourse.slicer"
 //quiz
+import GetPipPairs from "./modules/user/pip-calculator/getPipCurrencyPair.slicer"
 import GetQuizList from "./modules/admin/quiz/getQuizList.slicer"
 
 const rootReducer = combineReducers({
@@ -28,6 +29,8 @@ const rootReducer = combineReducers({
   CreateCourse,
   //quiz
   GetQuizList,
+  //pip currency
+  GetPipPairs,
   //adminUser
   AddAdminUserReducer,
   updateAdminUserReducer
