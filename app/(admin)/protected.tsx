@@ -9,7 +9,7 @@ export default function Protected({ children }: { children: React.ReactNode }) {
   const { loadingUser, user } = useAppSelector((state) => state.FetchUser);
 
   useEffect(() => {
-    if(user?.role !== 1)
+    if(user && user.role !== 1)
     router.replace(`/`);
   }, [loadingUser]);
 
