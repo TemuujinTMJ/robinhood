@@ -14,7 +14,7 @@ import UpdateCourse from "./modules/admin/course/updateCourse.slicer"
 import DeleteCourse from "./modules/admin/course/deleteCourse.slicer"
 import CreateCourse from "./modules/admin/course/createCourse.slicer"
 //quiz
-import GetQuizList from "./modules/admin/course/getCourseList.slicer"
+import GetQuizList from "./modules/admin/quiz/getQuizList.slicer"
 
 const rootReducer = combineReducers({
   LoginReducer,
