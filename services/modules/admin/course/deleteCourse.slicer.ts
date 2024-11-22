@@ -1,10 +1,9 @@
 "use client";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { DeleteCourse } from "./deleteCourse.service";
 
 const initialState = {
-  loading: false,
-  courses: []
+  loadingDelete: false,
 };
 
 const adminCourseList = createSlice({
@@ -13,17 +12,15 @@ const adminCourseList = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(DeleteCourse.pending, (state) => {
-      state.loading = true;
+      state.loadingDelete = true;
     });
 
-    builder.addCase(DeleteCourse.fulfilled, (state, action: PayloadAction<any>) => {
-      state.loading = false;
-      console.log(action.payload)
-      state.courses = action.payload
+    builder.addCase(DeleteCourse.fulfilled, (state) => {
+      state.loadingDelete = false;
     });
 
     builder.addCase(DeleteCourse.rejected, (state) => {
-      state.loading = false;
+      state.loadingDelete = false;
     });
   },
 });

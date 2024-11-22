@@ -1,9 +1,10 @@
 "use client";
 import Header from "@/components/Header";
 import { useAppDispatch, useAppSelector } from "@/services/hooks";
-import { GetAdminQuizList } from "@/services/modules/admin/quiz/getQuizList.service";
-import { AddAdminUser } from "@/services/modules/admin/user/addUser.service";
-import { UpdateAdminUser } from "@/services/modules/admin/user/updateUser.service";
+import { CreateCourse } from "@/services/modules/admin/course/createCourse.service";
+import { DeleteCourse } from "@/services/modules/admin/course/deleteCourse.service";
+import { GetCourseList } from "@/services/modules/admin/course/getCourseList.service";
+import { UpdateCourse } from "@/services/modules/admin/course/updateCourse.service";
 import {
   Button,
   Card,
@@ -11,11 +12,11 @@ import {
   Form,
   Input,
   message,
-  Space,
+  Select,
   Table,
-  Typography,
 } from "antd";
 import { useForm } from "antd/es/form/Form";
+import TextArea from "antd/es/input/TextArea";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 
@@ -25,22 +26,18 @@ export default function Courses() {
   const [isUpdate, setIsUpdate] = useState(false);
   const [form] = useForm();
   const [pageNum, setPageNum] = useState(1);
-  const { getQuizloading, quiz, total } = useAppSelector(
-    (state) => state.GetQuizList
+  const { courses, loading, total } = useAppSelector(
+    (state) => state.GetCourseList
   );
-  const { loadingUserCreateAdmin } = useAppSelector(
-    (state) => state.AddAdminUserReducer
-  );
-  const { loadingUpdateUsers } = useAppSelector(
-    (state) => state.updateAdminUserReducer
-  );
+  const { loadingCreate } = useAppSelector((state) => state.CreateCourse);
+  const { loadingUpdate } = useAppSelector((state) => state.UpdateCourse);
+  const { loadingDelete } = useAppSelector((state) => state.DeleteCourse);
   useEffect(() => {
-    dispatch(GetAdminQuizList({ page_size: 10, page_number: pageNum }));
-    console.log(pageNum);
+    dispatch(GetCourseList({ page_size: 10, page_number: pageNum }));
   }, [pageNum]);
   const onFinish = (values: any) => {
     if (isUpdate) {
-      dispatch(UpdateAdminUser(values)).then((e) => {
+      dispatch(UpdateCourse(values)).then((e) => {
         if (e.payload.success) {
           message.success(e.payload.response);
           setIsOpen(false);
@@ -49,7 +46,7 @@ export default function Courses() {
         }
       });
     } else {
-      dispatch(AddAdminUser(values)).then((e) => {
+      dispatch(CreateCourse(values)).then((e) => {
         if (e.payload.success) {
           message.success(e.payload.response);
           setIsOpen(false);
@@ -72,12 +69,27 @@ export default function Courses() {
     {
       key: "title",
       title: "Title",
-      dataIndex: "title",
+      dataIndex: "name",
+    },
+    {
+      key: "desctiption",
+      title: "Desctiption",
+      dataIndex: "desctiption",
     },
     {
       key: "id",
       title: "Id",
       dataIndex: "id",
+    },
+    {
+      key: "course_type",
+      title: "Course Type",
+      dataIndex: "course_type",
+    },
+    {
+      key: "status",
+      title: "Status",
+      dataIndex: "is_visible",
     },
     {
       key: "created_at",
@@ -99,6 +111,24 @@ export default function Courses() {
       render: (_: any, record: any) => (
         <div className="flex gap-1 flex-nowrap">
           <Button
+            loading={loadingDelete}
+            onClick={() => {
+              dispatch(DeleteCourse({ id: record.id })).then((e) => {
+                if (e.payload.success) {
+                  message.success("Course deleted!!");
+                } else {
+                  message.success(e.payload.response);
+                }
+                dispatch(
+                  GetCourseList({ page_size: 10, page_number: pageNum })
+                );
+              });
+            }}
+          >
+            Delete
+          </Button>
+          <Button
+            loading={loadingDelete}
             onClick={() => {
               setIsUpdate(true), form.setFieldsValue(record), setIsOpen(true);
             }}
@@ -124,9 +154,9 @@ export default function Courses() {
         }
       />
       <Table
-        dataSource={quiz}
+        dataSource={courses}
         columns={columns}
-        loading={getQuizloading}
+        loading={loading}
         rowKey={(record: any) => record?.id}
         pagination={{
           current: pageNum,
@@ -137,8 +167,8 @@ export default function Courses() {
       />
       <Drawer open={isOpen} onClose={() => setIsOpen(false)} width={650}>
         <Form
+          layout="vertical"
           labelCol={{ span: 6 }}
-          wrapperCol={{ span: 18 }}
           form={form}
           name="dynamic_form_complex"
           style={{ maxWidth: 600 }}
@@ -146,7 +176,57 @@ export default function Courses() {
           initialValues={{ items: [{}] }}
           onFinish={onFinish}
         >
-          <Form.List name="quistions">
+          <Form.Item
+            label="Course Name"
+            name="name"
+            rules={[
+              { required: true, message: "Course name is required!" },
+              {
+                max: 100,
+                message: "Course name must be at most 100 characters!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label="Course Description"
+            name="desctiption"
+            rules={[
+              { required: true, message: "Course description is required!" },
+              {
+                max: 500,
+                message: "Description must be at most 500 characters!",
+              },
+            ]}
+          >
+            <TextArea />
+          </Form.Item>
+          <Form.Item
+            label="Status"
+            name="is_visible"
+            rules={[{ required: true, message: "Status is required!" }]}
+          >
+            <Select
+              options={[
+                { label: "Active", value: 1 },
+                { label: "Inactive", value: 0 },
+              ]}
+            />
+          </Form.Item>
+          <Form.Item
+            label="Course Type"
+            name="course_type"
+            rules={[{ required: true, message: "Course type is required!" }]}
+          >
+            <Select
+              options={[
+                { label: "Free", value: 0 },
+                { label: "Paid", value: 1 },
+              ]}
+            />
+          </Form.Item>
+          <Form.List name="lessons">
             {(fields, { add, remove }) => (
               <div
                 style={{ display: "flex", rowGap: 16, flexDirection: "column" }}
@@ -154,25 +234,66 @@ export default function Courses() {
                 {fields.map((field) => (
                   <Card
                     size="small"
-                    title={`Item ${field.name + 1}`}
+                    title={`Lesson ${field.name + 1}`}
                     key={field.key}
                     extra={
                       <Button
-                        onClick={() => {
-                          remove(field.name);
-                        }}
+                        type="link"
+                        danger
+                        onClick={() => remove(field.name)}
                       >
-                        remove
+                        Remove Lesson
                       </Button>
                     }
                   >
-                    <Form.Item label="Question" name={[field.name, "question"]}>
+                    <Form.Item
+                      label="Title"
+                      name={[field.name, "title"]}
+                      rules={[
+                        {
+                          required: true,
+                          message: "Lesson title is required!",
+                        },
+                        {
+                          max: 100,
+                          message: "Title must be at most 100 characters!",
+                        },
+                      ]}
+                    >
                       <Input />
                     </Form.Item>
-
-                    {/* Nest Form.List */}
-                    <Form.Item label="Answer">
-                      <Form.List name={[field.name, "answers"]}>
+                    <Form.Item
+                      label="Description"
+                      name={[field.name, "description"]}
+                      rules={[
+                        {
+                          required: true,
+                          message: "Lesson description is required!",
+                        },
+                        {
+                          max: 500,
+                          message:
+                            "Description must be at most 500 characters!",
+                        },
+                      ]}
+                    >
+                      <TextArea />
+                    </Form.Item>
+                    <Form.Item
+                      label="Link"
+                      name={[field.name, "link"]}
+                      rules={[
+                        { required: true, message: "Lesson link is required!" },
+                        {
+                          type: "url",
+                          message: "Please enter a valid URL!",
+                        },
+                      ]}
+                    >
+                      <Input />
+                    </Form.Item>
+                    <Form.Item label="Exams">
+                      <Form.List name={[field.name, "exams"]}>
                         {(subFields, subOpt) => (
                           <div
                             style={{
@@ -182,34 +303,111 @@ export default function Courses() {
                             }}
                           >
                             {subFields.map((subField) => (
-                              <Space key={subField.key}>
+                              <Card
+                                key={subField.key}
+                                title={`Question ${subField.name + 1}`}
+                                size="small"
+                                extra={
+                                  <Button
+                                    type="link"
+                                    danger
+                                    onClick={() => subOpt.remove(subField.name)}
+                                  >
+                                    Remove Exam
+                                  </Button>
+                                }
+                              >
                                 <Form.Item
-                                  noStyle
-                                  name={[subField.name, "answer"]}
+                                  label="Question"
+                                  name={[subField.name, "question"]}
+                                  rules={[
+                                    {
+                                      required: true,
+                                      message: "Please input a question!",
+                                    },
+                                    {
+                                      max: 200,
+                                      message:
+                                        "Question must be at most 200 characters!",
+                                    },
+                                  ]}
                                 >
-                                  <Input placeholder="Answer" />
+                                  <Input />
                                 </Form.Item>
-                                <Form.Item
-                                  noStyle
-                                  name={[subField.name, "point"]}
-                                >
-                                  <Input placeholder="Point" />
-                                </Form.Item>
-                                <Button
-                                  onClick={() => {
-                                    subOpt.remove(subField.name);
-                                  }}
-                                >
-                                  remove answer
-                                </Button>
-                              </Space>
+                                <Form.List name={[subField.name, "answers"]}>
+                                  {(answerFields, answerOpt) => (
+                                    <div>
+                                      {answerFields.map((answerField) => (
+                                        <div
+                                          key={answerField.key}
+                                          className="grid grid-cols-3 gap-2"
+                                        >
+                                          <Form.Item
+                                            name={[answerField.name, "answer"]}
+                                            rules={[
+                                              {
+                                                required: true,
+                                                message:
+                                                  "Please input an answer!",
+                                              },
+                                              {
+                                                max: 100,
+                                                message:
+                                                  "Answer must be at most 100 characters!",
+                                              },
+                                            ]}
+                                          >
+                                            <Input placeholder="Answer" />
+                                          </Form.Item>
+                                          <Form.Item
+                                            name={[answerField.name, "correct"]}
+                                            rules={[
+                                              {
+                                                required: true,
+                                                message:
+                                                  "Please select the answer correctness!",
+                                              },
+                                            ]}
+                                          >
+                                            <Select
+                                              options={[
+                                                {
+                                                  label: "Incorrect",
+                                                  value: false,
+                                                },
+                                                { label: "Correct", value: true },
+                                              ]}
+                                            />
+                                          </Form.Item>
+                                          <Button
+                                            type="link"
+                                            danger
+                                            onClick={() =>
+                                              answerOpt.remove(answerField.name)
+                                            }
+                                          >
+                                            Remove
+                                          </Button>
+                                        </div>
+                                      ))}
+                                      <Button
+                                        type="dashed"
+                                        onClick={() => answerOpt.add()}
+                                        block
+                                      >
+                                        + Add Answer
+                                      </Button>
+                                    </div>
+                                  )}
+                                </Form.List>
+                              </Card>
                             ))}
                             <Button
                               type="dashed"
                               onClick={() => subOpt.add()}
                               block
                             >
-                              + Add Answer
+                              + Add Exam
                             </Button>
                           </div>
                         )}
@@ -217,25 +415,14 @@ export default function Courses() {
                     </Form.Item>
                   </Card>
                 ))}
-
                 <Button type="dashed" onClick={() => add()} block>
-                  + Add Quistion
+                  + Add Question
                 </Button>
               </div>
             )}
           </Form.List>
-
-          <Form.Item noStyle shouldUpdate>
-            {() => (
-              <Typography>
-                <pre>{JSON.stringify(form.getFieldsValue(), null, 2)}</pre>
-              </Typography>
-            )}
-          </Form.Item>
-          <Button
-            htmlType="submit"
-            loading={loadingUserCreateAdmin || loadingUpdateUsers}
-          >
+          <Form.Item name="id" />
+          <Button htmlType="submit" loading={loadingCreate || loadingUpdate}>
             Save
           </Button>
         </Form>

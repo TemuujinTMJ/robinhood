@@ -5,12 +5,12 @@ import { PipPair } from "@/types/types";
 
 interface PipPairState {
     loadingPipPairs: boolean;
-    pipPairs: PipPair[] | null;
+    pipPairs: object;
 };
 
 const initialState: PipPairState = {
-    loadingPipPairs: false,
-    pipPairs: null
+    loadingPipPairs: true,
+    pipPairs: {}
 };
 
 const pipPairList = createSlice({
