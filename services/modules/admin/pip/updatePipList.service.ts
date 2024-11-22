@@ -2,10 +2,10 @@
 import { api } from "@/boot/baseApi";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const CreateCourse = createAsyncThunk(
-  "/course/create",
+export const UpdatePipList = createAsyncThunk(
+  "/pip/create_multiple",
   async (data: object) => {
-    const url = `/course/create`;
+    const url = `/pip/create_multiple`;
     return api.post(url, data).then((response) => response.data);
   }
 );

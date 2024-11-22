@@ -4,7 +4,8 @@ import { GetCourseList } from "./getCourseList.service";
 
 const initialState = {
   loading: false,
-  courses: []
+  courses: [],
+  total: 0
 };
 
 const adminCourseList = createSlice({
@@ -19,7 +20,8 @@ const adminCourseList = createSlice({
     builder.addCase(GetCourseList.fulfilled, (state, action: PayloadAction<any>) => {
       state.loading = false;
       console.log(action.payload)
-      state.courses = action.payload
+      state.courses = action.payload.courses
+      state.total = action.payload.total_count
     });
 
     builder.addCase(GetCourseList.rejected, (state) => {
