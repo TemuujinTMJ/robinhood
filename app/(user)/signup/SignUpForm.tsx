@@ -8,8 +8,8 @@ import { useRouter } from "next/navigation";
 
 export default function SignUpForm() {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     email: "",
     phone: "",
     password: "",
@@ -28,14 +28,20 @@ export default function SignUpForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+  
+    if (formData.password !== formData.confirmPassword) {
+      message.error("Нууц үг таарахгүй байна!");
+      return;
+    }
+  
     dispatch(SignUp(formData)).then((e) => {
-      if(e.payload.success) {
-        message.success('Амжилттай бүртгэгдлээ!')
-        router.replace('/login')
+      if (e.payload.success) {
+        message.success("Амжилттай бүртгэгдлээ!");
+        router.replace("/login");
       } else {
-        message.error(e.payload.response)
+        message.error(e.payload.response);
       }
-    })
+    });
   };
 
   return (
@@ -66,7 +72,7 @@ export default function SignUpForm() {
                 type="text"
                 id="firstName"
                 name="firstName"
-                value={formData.firstName}
+                value={formData.first_name}
                 onChange={handleChange}
                 className="mt-1 block w-full px-4 py-2 bg-glass border border-gray-300 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500"
                 required
@@ -83,7 +89,7 @@ export default function SignUpForm() {
                 type="text"
                 id="lastName"
                 name="lastName"
-                value={formData.lastName}
+                value={formData.last_name}
                 onChange={handleChange}
                 className="mt-1 block w-full px-4 py-2 bg-glass border border-gray-300 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500"
                 required
