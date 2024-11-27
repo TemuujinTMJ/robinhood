@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 const PipCalculatorForm = () => {
   const dispatch = useAppDispatch();
-  const { loadingPipPairs } = useAppSelector(
+  const { loadingPipPairs, pipPairs } = useAppSelector(
     (state) => state.GetPipPairs
   );
 
@@ -23,7 +23,6 @@ const PipCalculatorForm = () => {
   const [potentialProfit, setPotentialProfit] = useState<number>(0);
   const [riskRewardRatio, setRiskRewardRatio] = useState<number>(0);
   const [balanceAfterLoss, setBalanceAfterLoss] = useState<number>(0);
-
   useEffect(() => {
     dispatch(GetPipPairList())
       .unwrap()
@@ -73,7 +72,7 @@ const PipCalculatorForm = () => {
                   onChange={(e) => setPair(e.target.value)}
                   className="mt-1 block w-full px-3 py-2 border-none bg-gray-800 text-white rounded-md text-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
                 >
-                  {Object.keys(currencyPairsWithCoefficients).map(
+                  {pipPairs && Object.keys(pipPairs).map(
                     (asset, index) => (
                       <option key={index} value={asset}>
                         {asset}

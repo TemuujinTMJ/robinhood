@@ -48,7 +48,6 @@ export default function PipCalculatorPairs() {
       },
       {}
     );
-
     dispatch(UpdatePipList({pairs: pairsObject})).then((e) => {
       if (e.payload.success) {
         message.success("Pairs updated successfully!");
