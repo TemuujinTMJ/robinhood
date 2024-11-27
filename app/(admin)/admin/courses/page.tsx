@@ -41,6 +41,7 @@ export default function Courses() {
         if (e.payload.success) {
           message.success(e.payload.response);
           setIsOpen(false);
+          dispatch(GetCourseList({ page_size: 10, page_number: pageNum }));
         } else {
           message.error(e.payload.response);
         }
@@ -50,6 +51,7 @@ export default function Courses() {
         if (e.payload.success) {
           message.success(e.payload.response);
           setIsOpen(false);
+          dispatch(GetCourseList({ page_size: 10, page_number: pageNum }));
         } else {
           message.error(e.payload.response);
         }
@@ -375,7 +377,10 @@ export default function Courses() {
                                                   label: "Incorrect",
                                                   value: false,
                                                 },
-                                                { label: "Correct", value: true },
+                                                {
+                                                  label: "Correct",
+                                                  value: true,
+                                                },
                                               ]}
                                             />
                                           </Form.Item>
@@ -422,7 +427,11 @@ export default function Courses() {
             )}
           </Form.List>
           <Form.Item name="id" />
-          <Button htmlType="submit" loading={loadingCreate || loadingUpdate}>
+          <Button
+            className="mt-2"
+            htmlType="submit"
+            loading={loadingCreate || loadingUpdate}
+          >
             Save
           </Button>
         </Form>

@@ -1,21 +1,24 @@
 "use client";
 import Header from "@/components/Header";
 import { useAppDispatch, useAppSelector } from "@/services/hooks";
+import { CreateAdminQuizList } from "@/services/modules/admin/quiz/createQuizList.service";
+import { DeleteAdminQuizList } from "@/services/modules/admin/quiz/deleteQuizList.service";
 import { GetAdminQuizList } from "@/services/modules/admin/quiz/getQuizList.service";
-import { AddAdminUser } from "@/services/modules/admin/user/addUser.service";
-import { UpdateAdminUser } from "@/services/modules/admin/user/updateUser.service";
+import { UpdateAdminQuizList } from "@/services/modules/admin/quiz/updateQuizList.service";
 import {
   Button,
   Card,
   Drawer,
   Form,
   Input,
+  InputNumber,
   message,
+  Select,
   Space,
   Table,
-  Typography,
 } from "antd";
 import { useForm } from "antd/es/form/Form";
+import TextArea from "antd/es/input/TextArea";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 
@@ -28,31 +31,29 @@ export default function Quiz() {
   const { getQuizloading, quiz, total } = useAppSelector(
     (state) => state.GetQuizList
   );
-  const { loadingUserCreateAdmin } = useAppSelector(
-    (state) => state.AddAdminUserReducer
-  );
-  const { loadingUpdateUsers } = useAppSelector(
-    (state) => state.updateAdminUserReducer
-  );
+  const { udpateQuizloading } = useAppSelector((state) => state.UpdateQuizList);
+  const { addQuizloading } = useAppSelector((state) => state.CreateQuizList);
+  const { deleteQuizloading } = useAppSelector((state) => state.DeleteQuizList);
   useEffect(() => {
     dispatch(GetAdminQuizList({ page_size: 10, page_number: pageNum }));
-    console.log(pageNum);
   }, [pageNum]);
   const onFinish = (values: any) => {
     if (isUpdate) {
-      dispatch(UpdateAdminUser(values)).then((e) => {
+      dispatch(UpdateAdminQuizList(values)).then((e) => {
         if (e.payload.success) {
           message.success(e.payload.response);
           setIsOpen(false);
+          dispatch(GetAdminQuizList({ page_size: 10, page_number: pageNum }));
         } else {
           message.error(e.payload.response);
         }
       });
     } else {
-      dispatch(AddAdminUser(values)).then((e) => {
+      dispatch(CreateAdminQuizList(values)).then((e) => {
         if (e.payload.success) {
           message.success(e.payload.response);
           setIsOpen(false);
+          dispatch(GetAdminQuizList({ page_size: 10, page_number: pageNum }));
         } else {
           message.error(e.payload.response);
         }
@@ -70,9 +71,24 @@ export default function Quiz() {
       ),
     },
     {
-      key: "title",
-      title: "Title",
-      dataIndex: "title",
+      key: "name",
+      title: "Name",
+      dataIndex: "name",
+    },
+    {
+      key: "desctiption",
+      title: "Desctiption",
+      dataIndex: "desctiption",
+    },
+    {
+      key: "status",
+      title: "Status",
+      dataIndex: "is_visible",
+    },
+    {
+      key: "quiz_type",
+      title: "Quiz Type",
+      dataIndex: "quiz_type",
     },
     {
       key: "id",
@@ -99,6 +115,23 @@ export default function Quiz() {
       render: (_: any, record: any) => (
         <div className="flex gap-1 flex-nowrap">
           <Button
+            loading={deleteQuizloading}
+            onClick={() => {
+              dispatch(DeleteAdminQuizList({ id: record.id })).then((e) => {
+                if (e.payload.success) {
+                  message.success("Course deleted!!");
+                } else {
+                  message.success(e.payload.response);
+                }
+                dispatch(
+                  GetAdminQuizList({ page_size: 10, page_number: pageNum })
+                );
+              });
+            }}
+          >
+            Delete
+          </Button>
+          <Button
             onClick={() => {
               setIsUpdate(true), form.setFieldsValue(record), setIsOpen(true);
             }}
@@ -112,14 +145,14 @@ export default function Quiz() {
   return (
     <div>
       <Header
-        title={`Website users (${total})`}
+        title={`Quizs (${total})`}
         extra={
           <Button
             onClick={() => {
               setIsOpen(true), setIsUpdate(false), form.resetFields();
             }}
           >
-            Add User
+            Add Quiz
           </Button>
         }
       />
@@ -137,16 +170,70 @@ export default function Quiz() {
       />
       <Drawer open={isOpen} onClose={() => setIsOpen(false)} width={650}>
         <Form
-          labelCol={{ span: 6 }}
-          wrapperCol={{ span: 18 }}
           form={form}
           name="dynamic_form_complex"
-          style={{ maxWidth: 600 }}
           autoComplete="off"
-          initialValues={{ items: [{}] }}
+          initialValues={{ items: [{}], is_visible: 1, quiz_type: 0 }}
           onFinish={onFinish}
+          onFinishFailed={() =>
+            message.error("Please complete the required fields!")
+          }
+          layout="vertical"
         >
-          <Form.List name="quistions">
+          {isUpdate && <Form.Item name="id" className="hidden" />}
+
+          <Form.Item
+            label="Name"
+            name="name"
+            rules={[
+              { required: true, message: "Name is required!" },
+              { min: 3, message: "Name must be at least 3 characters long!" },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Description"
+            name="description"
+            rules={[
+              { required: true, message: "Description is required!" },
+              {
+                max: 500,
+                message: "Description cannot exceed 500 characters!",
+              },
+            ]}
+          >
+            <TextArea />
+          </Form.Item>
+
+          <Form.Item
+            label="Status"
+            name="is_visible"
+            rules={[{ required: true, message: "Status is required!" }]}
+          >
+            <Select
+              options={[
+                { label: "Active", value: 1 },
+                { label: "Inactive", value: 0 },
+              ]}
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="Quiz Type"
+            name="quiz_type"
+            rules={[{ required: true, message: "Quiz type is required!" }]}
+          >
+            <Select
+              options={[
+                { label: "Free", value: 0 },
+                { label: "Paid", value: 1 },
+              ]}
+            />
+          </Form.Item>
+
+          <Form.List name="questions">
             {(fields, { add, remove }) => (
               <div
                 style={{ display: "flex", rowGap: 16, flexDirection: "column" }}
@@ -154,23 +241,31 @@ export default function Quiz() {
                 {fields.map((field) => (
                   <Card
                     size="small"
-                    title={`Item ${field.name + 1}`}
+                    title={`Quistion ${field.name + 1}`}
                     key={field.key}
                     extra={
                       <Button
+                        type="link"
+                        ghost
+                        danger
                         onClick={() => {
                           remove(field.name);
                         }}
                       >
-                        remove
+                        Remove Question
                       </Button>
                     }
                   >
-                    <Form.Item label="Question" name={[field.name, "question"]}>
+                    <Form.Item
+                      label="Question"
+                      name={[field.name, "question"]}
+                      rules={[
+                        { required: true, message: "Question is required!" },
+                      ]}
+                    >
                       <Input />
                     </Form.Item>
 
-                    {/* Nest Form.List */}
                     <Form.Item label="Answer">
                       <Form.List name={[field.name, "answers"]}>
                         {(subFields, subOpt) => (
@@ -186,21 +281,41 @@ export default function Quiz() {
                                 <Form.Item
                                   noStyle
                                   name={[subField.name, "answer"]}
+                                  rules={[
+                                    {
+                                      required: true,
+                                      message: "Answer is required!",
+                                    },
+                                  ]}
                                 >
                                   <Input placeholder="Answer" />
                                 </Form.Item>
                                 <Form.Item
                                   noStyle
                                   name={[subField.name, "point"]}
+                                  rules={[
+                                    {
+                                      required: true,
+                                      message: "Point is required!",
+                                    },
+                                    {
+                                      type: "number",
+                                      transform: (value) => Number(value),
+                                      message: "Point must be a number!",
+                                    },
+                                  ]}
                                 >
                                   <Input placeholder="Point" />
                                 </Form.Item>
                                 <Button
+                                  type="link"
+                                  ghost
+                                  danger
                                   onClick={() => {
                                     subOpt.remove(subField.name);
                                   }}
                                 >
-                                  remove answer
+                                  Remove Answer
                                 </Button>
                               </Space>
                             ))}
@@ -218,23 +333,93 @@ export default function Quiz() {
                   </Card>
                 ))}
 
-                <Button type="dashed" onClick={() => add()} block>
-                  + Add Quistion
+                <Button type="dashed" onClick={() => add()} block className="mb-4">
+                  + Add Question
                 </Button>
               </div>
             )}
           </Form.List>
 
-          <Form.Item noStyle shouldUpdate>
-            {() => (
-              <Typography>
-                <pre>{JSON.stringify(form.getFieldsValue(), null, 2)}</pre>
-              </Typography>
+          <Form.List name="results">
+            {(fields, { add, remove }) => (
+              <div
+                style={{ display: "flex", rowGap: 16, flexDirection: "column" }}
+              >
+                {fields.map((field) => (
+                  <Card
+                    size="small"
+                    title={`Result ${field.name + 1}`}
+                    key={field.key}
+                    extra={
+                      <Button
+                        type="link"
+                        ghost
+                        danger
+                        onClick={() => {
+                          remove(field.name);
+                        }}
+                      >
+                        Remove Result
+                      </Button>
+                    }
+                  >
+                    <Form.Item
+                      label="Name"
+                      name={[field.name, "name"]}
+                      rules={[{ required: true, message: "Name is required!" }]}
+                    >
+                      <Input />
+                    </Form.Item>
+
+                    <Form.Item
+                      label="Result"
+                      name={[field.name, "result"]}
+                      rules={[
+                        { required: true, message: "Result is required!" },
+                      ]}
+                    >
+                      <TextArea />
+                    </Form.Item>
+                    <div className="grid grid-cols-2 gap-4">
+                      <Form.Item
+                        label="Point After"
+                        name={[field.name, "point_range", 0]}
+                        rules={[
+                          {
+                            required: true,
+                            message: "Point After is required!",
+                          },
+                        ]}
+                      >
+                        <InputNumber placeholder="0" className="w-full" />
+                      </Form.Item>
+                      <Form.Item
+                        label="Point Before"
+                        name={[field.name, "point_range", 1]}
+                        rules={[
+                          {
+                            required: true,
+                            message: "Point Before is required!",
+                          },
+                        ]}
+                      >
+                        <InputNumber placeholder="29" className="w-full"/>
+                      </Form.Item>
+                    </div>
+                  </Card>
+                ))}
+
+                <Button type="dashed" onClick={() => add()} block>
+                  + Add Result
+                </Button>
+              </div>
             )}
-          </Form.Item>
+          </Form.List>
+
           <Button
+            className="mt-2"
             htmlType="submit"
-            loading={loadingUserCreateAdmin || loadingUpdateUsers}
+            loading={addQuizloading || udpateQuizloading}
           >
             Save
           </Button>
