@@ -27,7 +27,7 @@ export default function LoginForm() {
     dispatch(Login({ email: formData.email, password: formData.password })).then((e) => {
       if(e.payload.success) {
         message.success('Амжилттай Нэвтэрлээ!')
-        router.replace('/')
+        window.location.replace('/')
       } else {
         message.error(e.payload.error)
       }
