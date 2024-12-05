@@ -1,13 +1,11 @@
 "use client";
+import Logo from "@/public/Logo.svg";
+import User from "@/public/user.png";
+import { useAppSelector } from "@/services/hooks";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import Logo from "@/public/Logo.svg";
-import User from "@/public/user.png";
-import Image from "next/image";
-import { Button } from "antd";
-import { useAppSelector } from "@/services/hooks";
-import Cookies from "js-cookie";
 
 export default function Navbar() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);

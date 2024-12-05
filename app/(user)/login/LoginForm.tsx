@@ -4,14 +4,12 @@ import { Login } from "@/services/modules/auth/login.service";
 import { useState } from "react";
 import Link from "next/link";
 import { message, Spin } from "antd";
-import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  const router = useRouter()
   const dispatch = useAppDispatch();
   const { loading } = useAppSelector((state) => state.LoginReducer);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
