@@ -37,14 +37,14 @@ export default function Quiz() {
   const { deleteQuizloading } = useAppSelector((state) => state.DeleteQuizList);
   useEffect(() => {
     dispatch(GetAdminQuizList({ page_size: 10, page_number: pageNum }));
-  }, [pageNum]);
+  }, [pageNum, dispatch]);
   const onFinish = (values: any) => {
     if (isUpdate) {
       dispatch(UpdateAdminQuizList(values)).then((e) => {
         if (e.payload.success) {
           message.success(e.payload.response);
           setIsOpen(false);
-          dispatch(GetAdminQuizList({ page_size: 10, page_number: pageNum }));
+          dispatch(GetAdminQuizList({ page_size: 8, page_number: pageNum }));
         } else {
           message.error(e.payload.response);
         }
@@ -54,7 +54,7 @@ export default function Quiz() {
         if (e.payload.success) {
           message.success(e.payload.response);
           setIsOpen(false);
-          dispatch(GetAdminQuizList({ page_size: 10, page_number: pageNum }));
+          dispatch(GetAdminQuizList({ page_size: 8, page_number: pageNum }));
         } else {
           message.error(e.payload.response);
         }

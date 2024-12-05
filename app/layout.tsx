@@ -8,6 +8,8 @@ const play = Play({
 
 import "./globals.css";
 import Auth from "./auth";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export default async function RootLayout({
   children,
@@ -23,7 +25,11 @@ export default async function RootLayout({
         <div className={play.className}>
           <Providers>
             <Auth>
-              <main>{children}</main>
+              <div className="min-h-screen flex flex-col justify-between">
+                <Navbar />
+                <main className="pt-24">{children}</main>
+                <Footer />
+              </div>
             </Auth>
           </Providers>
         </div>

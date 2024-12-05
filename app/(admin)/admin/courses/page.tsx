@@ -18,6 +18,7 @@ import {
 import { useForm } from "antd/es/form/Form";
 import TextArea from "antd/es/input/TextArea";
 import dayjs from "dayjs";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function Courses() {
@@ -33,15 +34,15 @@ export default function Courses() {
   const { loadingUpdate } = useAppSelector((state) => state.UpdateCourse);
   const { loadingDelete } = useAppSelector((state) => state.DeleteCourse);
   useEffect(() => {
-    dispatch(GetCourseList({ page_size: 10, page_number: pageNum }));
-  }, [pageNum]);
+    dispatch(GetCourseList({ page_size: 8, page_number: pageNum }));
+  }, [pageNum, dispatch]);
   const onFinish = (values: any) => {
     if (isUpdate) {
       dispatch(UpdateCourse(values)).then((e) => {
         if (e.payload.success) {
           message.success(e.payload.response);
           setIsOpen(false);
-          dispatch(GetCourseList({ page_size: 10, page_number: pageNum }));
+          dispatch(GetCourseList({ page_size: 8, page_number: pageNum }));
         } else {
           message.error(e.payload.response);
         }
@@ -51,7 +52,7 @@ export default function Courses() {
         if (e.payload.success) {
           message.success(e.payload.response);
           setIsOpen(false);
-          dispatch(GetCourseList({ page_size: 10, page_number: pageNum }));
+          dispatch(GetCourseList({ page_size: 8, page_number: pageNum }));
         } else {
           message.error(e.payload.response);
         }
@@ -141,6 +142,7 @@ export default function Courses() {
       ),
     },
   ];
+  const imageLink = Form.useWatch("thumbnail_path", form);
   return (
     <div>
       <Header
@@ -193,7 +195,7 @@ export default function Courses() {
           </Form.Item>
           <Form.Item
             label="Course Description"
-            name="desctiption"
+            name="description"
             rules={[
               { required: true, message: "Course description is required!" },
               {
@@ -204,6 +206,16 @@ export default function Courses() {
           >
             <TextArea />
           </Form.Item>
+          <Form.Item
+            label="Image Link"
+            name="thumbnail_path"
+            rules={[{ required: true, message: "Image Link is required!" }]}
+          >
+            <Input />
+          </Form.Item>
+          <div className="flex justify-center">
+          <Image src={imageLink || ""} width={400} alt="image" height={100} />
+          </div>
           <Form.Item
             label="Status"
             name="is_visible"

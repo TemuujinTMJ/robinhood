@@ -3,6 +3,7 @@ const nextConfig = {
     images: {
         domains: [
           "www.milesweb.in",
+          "img-c.udemycdn.com"
         ],
       },
 };

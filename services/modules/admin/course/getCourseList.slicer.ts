@@ -1,9 +1,15 @@
-"use client";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { GetCourseList } from "./getCourseList.service";
+import {Course} from "@/types/types"
 
-const initialState = {
-  loading: false,
+interface CourseState {
+  loading: boolean;
+  courses: Course[];
+  total: number;
+}
+
+const initialState: CourseState = {
+  loading: true,
   courses: [],
   total: 0
 };

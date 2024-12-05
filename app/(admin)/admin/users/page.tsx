@@ -26,9 +26,8 @@ export default function Users() {
     (state) => state.updateAdminUserReducer
   );
   useEffect(() => {
-    dispatch(GetAdminUserList({ page_size: 10, page_number: pageNum }));
-    console.log(pageNum)
-  }, [pageNum]);
+    dispatch(GetAdminUserList({ page_size: 8, page_number: pageNum }));
+  }, [pageNum, dispatch]);
   const onFinish = (values: any) => {
     if (isUpdate) {
       dispatch(UpdateAdminUser(values)).then((e) => {

@@ -2,10 +2,12 @@
 import Logo from "@/public/Logo.svg";
 import User from "@/public/user.png";
 import { useAppSelector } from "@/services/hooks";
+import { Button } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
 export default function Navbar() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -15,20 +17,22 @@ export default function Navbar() {
 
   const path = usePathname();
   const links = [
-    { href: "/pip-calculator", label: "LOT Size тооцоолуур" },
-    { href: "/psychology-test", label: "Сэтгэлзүйн тест" },
-    { href: "/courses", label: "Хичээлүүд" },
     { href: "/forex", label: "Forex гэж юу вэ?" },
     {
       href: user ? "/profile" : "/login",
       label: user ? user.email : "Нэвтрэх / Бүртгүүлэх",
     },
   ];
-  if (user?.role === 1) {
-    links.unshift({
-      href: "/admin",
-      label: "Dashboard",
-    });
+  if (user) {
+    links.unshift(
+      { href: "/pip-calculator", label: "LOT Size тооцоолуур" },
+      { href: "/psychology-test", label: "Сэтгэлзүйн тест" },
+      { href: "/courses", label: "Хичээлүүд" }
+    );
+  
+    if (user.role === 1) {
+      links.unshift({ href: "/admin", label: "Dashboard" });
+    }
   }
   const toggleDrawer = () => {
     setIsDrawerOpen((prev) => !prev);
@@ -61,7 +65,7 @@ export default function Navbar() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [lastScrollY]);
+  }, [lastScrollY, handleScroll]);
   if (loadingUser) return <>laoding</>;
   const renderLinks = (onClick?: () => void) => {
     return links.map((link) => (
@@ -95,17 +99,15 @@ export default function Navbar() {
           </div>
           <div className="hidden md:flex space-x-6">
             {renderLinks()}
+            {user && <Image src={User} width={32} height={32} alt="user" />}
             {user && (
-              <div className="">
-                <Image src={User} width={32} height={32} alt="user" />
-                {/* <Button
-                  type="text"
-                  href="/login"
-                  onClick={() => Cookies.remove("token")}
-                >
-                  Logout
-                </Button> */}
-              </div>
+              <Button
+                type="text"
+                href="/login"
+                onClick={() => Cookies.remove("token")}
+              >
+                Logout
+              </Button>
             )}
           </div>
 

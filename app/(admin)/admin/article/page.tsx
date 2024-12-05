@@ -36,8 +36,7 @@ export default function Quiz() {
   );
   useEffect(() => {
     dispatch(GetAdminQuizList({ page_size: 10, page_number: pageNum }));
-    console.log(pageNum);
-  }, [pageNum]);
+  }, [pageNum, dispatch]);
   const onFinish = (values: any) => {
     if (isUpdate) {
       dispatch(UpdateAdminUser(values)).then((e) => {
