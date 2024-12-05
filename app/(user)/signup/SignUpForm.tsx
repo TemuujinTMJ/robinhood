@@ -71,7 +71,7 @@ export default function SignUpForm() {
               <input
                 type="text"
                 id="firstName"
-                name="firstName"
+                name="first_name"
                 value={formData.first_name}
                 onChange={handleChange}
                 className="mt-1 block w-full px-4 py-2 bg-glass border border-gray-300 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500"
@@ -88,7 +88,7 @@ export default function SignUpForm() {
               <input
                 type="text"
                 id="lastName"
-                name="lastName"
+                name="last_name"
                 value={formData.last_name}
                 onChange={handleChange}
                 className="mt-1 block w-full px-4 py-2 bg-glass border border-gray-300 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500"

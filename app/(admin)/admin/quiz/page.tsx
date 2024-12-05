@@ -20,6 +20,7 @@ import {
 import { useForm } from "antd/es/form/Form";
 import TextArea from "antd/es/input/TextArea";
 import dayjs from "dayjs";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function Quiz() {
@@ -142,6 +143,7 @@ export default function Quiz() {
       ),
     },
   ];
+  const imageLink = Form.useWatch("image_path", form);
   return (
     <div>
       <Header
@@ -207,6 +209,16 @@ export default function Quiz() {
             <TextArea />
           </Form.Item>
 
+          <Form.Item
+            label="Image Link"
+            name="image_path"
+            rules={[{ required: true, message: "Image Link is required!" }]}
+          >
+            <Input />
+          </Form.Item>
+          <div className="flex justify-center">
+          <Image src={imageLink || ""} width={400} alt="image" height={100} />
+          </div>
           <Form.Item
             label="Status"
             name="is_visible"
@@ -333,7 +345,12 @@ export default function Quiz() {
                   </Card>
                 ))}
 
-                <Button type="dashed" onClick={() => add()} block className="mb-4">
+                <Button
+                  type="dashed"
+                  onClick={() => add()}
+                  block
+                  className="mb-4"
+                >
                   + Add Question
                 </Button>
               </div>
@@ -403,7 +420,7 @@ export default function Quiz() {
                           },
                         ]}
                       >
-                        <InputNumber placeholder="29" className="w-full"/>
+                        <InputNumber placeholder="29" className="w-full" />
                       </Form.Item>
                     </div>
                   </Card>

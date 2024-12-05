@@ -3,6 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Logo from "@/public/Logo.svg";
+import User from "@/public/user.png";
 import Image from "next/image";
 import { Button } from "antd";
 import { useAppSelector } from "@/services/hooks";
@@ -97,13 +98,16 @@ export default function Navbar() {
           <div className="hidden md:flex space-x-6">
             {renderLinks()}
             {user && (
-              <Button
-                type="text"
-                href="/login"
-                onClick={() => Cookies.remove("token")}
-              >
-                Logout
-              </Button>
+              <div className="">
+                <Image src={User} width={32} height={32} alt="user" />
+                {/* <Button
+                  type="text"
+                  href="/login"
+                  onClick={() => Cookies.remove("token")}
+                >
+                  Logout
+                </Button> */}
+              </div>
             )}
           </div>
 
