@@ -58,7 +58,7 @@ export default function PipCalculatorPairs() {
   };
 
   return (
-    <div>
+    <div style={{ height: "calc(100vh - 185px)", overflow: 'scroll' }}>
       <Header
         title={`Pip calculator pairs (${Object.keys(pipPairs).length})`}
       />

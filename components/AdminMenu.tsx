@@ -1,19 +1,17 @@
 "use client";
-import { useAppSelector } from "@/services/hooks";
 import {
   ContainerOutlined,
   DesktopOutlined,
   PieChartOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { Affix, Menu } from "antd";
+import { Menu } from "antd";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
 const AdminMenu: React.FC = () => {
-  const { user } = useAppSelector((state) => state.FetchUser);
   const pathname = usePathname();
   const router = useRouter();
   const items: MenuItem[] = [
@@ -61,18 +59,17 @@ const AdminMenu: React.FC = () => {
     },
   ];
   return (
-    <Affix offsetTop={0}>
-      <div style={{ width: 256 }}>
-      <Menu
-        className="h-screen"
-        defaultSelectedKeys={[`${items.find((e) => e?.key === pathname)?.key || "/admin"}`]}
-        mode="inline"
-        theme="dark"
-        items={items}
-      />
-      <div className="z-20 fixed bottom-0 left-0 p-4">{user?.email}</div>
-    </div>
-    </Affix>
+      <div style={{ width: 256 }} className="min-h-full">
+        <Menu
+          defaultSelectedKeys={[
+            `${items.find((e) => e?.key === pathname)?.key || "/admin"}`,
+          ]}
+          style={{height: '100%'}}
+          mode="inline"
+          theme="dark"
+          items={items}
+        />
+      </div>
   );
 };
 

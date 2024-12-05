@@ -23,7 +23,7 @@ export default function Auth ({ children }: {
         }
       });
     }
-  }, []);
+  });
 
   if (loadingUser) return <></>;
   return <>{children}</>;

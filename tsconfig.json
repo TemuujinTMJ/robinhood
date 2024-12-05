@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/(user)/page.tsx", "app/(user)/layout.tsx", "components/Navbar.tsx", "app/auth.tsx", "services/modules/auth/user.service.ts", "services/modules/auth/user.slicer.ts", "services/reducers.jsx", "services/store.jsx", "services/hooks.jsx", "services/reducers.jsx", "app/layout.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/page.tsx", "app/(user)/layout.tsx", "components/Navbar.tsx", "app/auth.tsx", "services/modules/auth/user.service.ts", "services/modules/auth/user.slicer.ts", "services/reducers.jsx", "services/store.jsx", "services/hooks.jsx", "services/reducers.jsx", "app/layout.jsx"],
   "exclude": ["node_modules"]
 }
