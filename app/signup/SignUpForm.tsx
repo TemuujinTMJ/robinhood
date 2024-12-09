@@ -45,7 +45,7 @@ export default function SignUpForm() {
   };
 
   return (
-    <div className="flex justify-center items-center gap-10 md:mt-16 mt-4 flex-wrap md:flex-nowrap">
+    <div className="flex justify-center items-center gap-10 md:mt-16 mt-4 flex-wrap md:flex-nowrap pt-24">
       <div className="grid md:text-right text-center max-w-[500px] gap-4">
         <h1 className="text-5xl font-bold text-green-400">Robinhood traders</h1>
         <h1 className="text-5xl font-bold">Тавтай морил!</h1>

@@ -159,7 +159,7 @@ export default function Quiz() {
         }
       />
       <Table
-        dataSource={quiz}
+        dataSource={quiz as []}
         columns={columns}
         loading={getQuizloading}
         rowKey={(record: any) => record?.id}

@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import Head from "next/head";
 import FeatureCard from "@/components/FeatureCard";
@@ -24,7 +25,7 @@ const Home = () => {
       <PricingCard />
       <Testimonial />
 
-      {/* <style jsx>{`
+      <style jsx>{`
         @keyframes fade-in {
           from {
             opacity: 0;
@@ -38,7 +39,7 @@ const Home = () => {
         .animate-fade-in {
           animation: fade-in 0.6s ease forwards;
         }
-      `}</style> */}
+      `}</style>
     </>
   );
 };

@@ -27,7 +27,7 @@ export default async function RootLayout({
             <Auth>
               <div className="min-h-screen flex flex-col justify-between">
                 <Navbar />
-                <main className="pt-24">{children}</main>
+                <main>{children}</main>
                 <Footer />
               </div>
             </Auth>

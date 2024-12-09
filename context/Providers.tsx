@@ -2,7 +2,7 @@
 
 import { Provider } from "react-redux";
 import { store } from "@/services/store";
-import { ConfigProvider, message, theme } from "antd";
+import { App, ConfigProvider, message, theme } from "antd";
 import AntdProvider from "./AntdProvider";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
@@ -12,14 +12,14 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Provider store={store}>
-      {contextHolder}
+        {contextHolder}
         <AntdProvider>
           <ConfigProvider
             theme={{
               algorithm: theme.darkAlgorithm,
             }}
           >
-            {children}
+            <App>{children}</App>
           </ConfigProvider>
         </AntdProvider>
       </Provider>

@@ -7,7 +7,7 @@ export default function RootLayout({
 }) {
   return (
     <Protected>
-      <div className="min-h-screen flex flex-col justify-between">
+      <div className="min-h-full flex flex-col justify-between">
         <main className="pt-24">{children}</main>
       </div>
     </Protected>
