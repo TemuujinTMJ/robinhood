@@ -8,7 +8,7 @@ export default function RootLayout({
 }) {
   return (
     <Protected>
-      <div className="flex">
+      <div className="flex min-h-full pt-24" style={{ height: "calc(100vh - 185px)" }}>
         <AdminMenu />
         <div className="p-4 flex-1">{children}</div>
       </div>

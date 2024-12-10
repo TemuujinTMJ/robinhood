@@ -1,36 +1,40 @@
 "use client";
 import { createSlice } from "@reduxjs/toolkit";
-import { QuizCreate } from "./quizCreate.service";
 import { message } from "antd";
-
-const initialState = {
-  loading: false,
+import { QuizGet } from "./quizGet.service";
+import { Quiz } from "@/types/types";
+interface QuizState {
+  getQuizloading: boolean;
+  quiz: Quiz | null;
+}
+const initialState: QuizState = {
+  getQuizloading: true,
   quiz: null,
 };
 
-const userQuizCreate = createSlice({
+const GetQuiz = createSlice({
   name: "quizCreate",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(QuizCreate.pending, (state) => {
-      state.loading = true;
+    builder.addCase(QuizGet.pending, (state) => {
+      state.getQuizloading = true;
     });
 
-    builder.addCase(QuizCreate.fulfilled, (state, action) => {
-      state.loading = false;
+    builder.addCase(QuizGet.fulfilled, (state, action) => {
+      state.getQuizloading = false;
 
-      if(action.payload.success) {
-        void message.success('Quiz successfully created!!')
+      if (action.payload.success) {
+        state.quiz = action.payload.quiz;
       } else {
-        void message.error(action.payload.error)
+        void message.error(action.payload.response);
       }
     });
 
-    builder.addCase(QuizCreate.rejected, (state) => {
-      state.loading = false;
+    builder.addCase(QuizGet.rejected, (state) => {
+      state.getQuizloading = false;
     });
   },
 });
 
-export default userQuizCreate.reducer;
+export default GetQuiz.reducer;

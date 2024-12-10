@@ -4,8 +4,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const GetAdminUserList = createAsyncThunk(
   "/admin/user/list",
-  async () => {
+  async (data: object) => {
     const url = `/admin/user/list`;
-    return api.post(url).then((response) => response.data);
+    return api.post(url, data).then((response) => response.data);
   }
 );

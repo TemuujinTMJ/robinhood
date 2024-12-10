@@ -2,14 +2,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { fetchUser } from "./user.service";
 import { User } from "@/types/types";
+import Cookies from "js-cookie";
 
 interface UserState {
   loadingUser: boolean;
   user: User | null;
 }
 const initialState: UserState = {
-  loadingUser: false,
-  user: null
+  loadingUser: true,
+  user: null,
 };
 
 const userSlice = createSlice({
@@ -23,7 +24,11 @@ const userSlice = createSlice({
       })
       .addCase(fetchUser.fulfilled, (state, action: PayloadAction<User>) => {
         state.loadingUser = false;
-        state.user = action.payload;
+        if (action.payload.id) {
+          state.user = action.payload;
+        } else {
+          Cookies.remove("token");
+        }
       })
       .addCase(fetchUser.rejected, (state) => {
         state.loadingUser = false;
