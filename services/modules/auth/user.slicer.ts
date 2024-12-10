@@ -3,14 +3,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { fetchUser } from "./user.service";
 import { User } from "@/types/types";
 import Cookies from "js-cookie";
-import { message } from "antd";
 
 interface UserState {
   loadingUser: boolean;
   user: User | null;
 }
 const initialState: UserState = {
-  loadingUser: false,
+  loadingUser: true,
   user: null,
 };
 
@@ -29,7 +28,6 @@ const userSlice = createSlice({
           state.user = action.payload;
         } else {
           Cookies.remove("token");
-          message.error("Session Expired!!")
         }
       })
       .addCase(fetchUser.rejected, (state) => {

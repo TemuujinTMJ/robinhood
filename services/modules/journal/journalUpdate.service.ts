@@ -2,7 +2,7 @@
 import { api } from "@/boot/baseApi";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const QuizGet = createAsyncThunk("/quiz/get", async (data: object) => {
-  const url = `/quiz/get`;
+export const JournalUpdate = createAsyncThunk("/journal/update", async (data: object) => {
+  const url = `/journal/update`;
   return api.post(url, data).then((response) => response.data);
 });

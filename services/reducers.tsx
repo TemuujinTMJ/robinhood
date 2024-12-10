@@ -14,13 +14,20 @@ import GetCourseList from "./modules/admin/course/getCourseList.slicer";
 import UpdateCourse from "./modules/admin/course/updateCourse.slicer";
 import DeleteCourse from "./modules/admin/course/deleteCourse.slicer";
 import CreateCourse from "./modules/admin/course/createCourse.slicer";
+import GetCourse from "./modules/course/courseGet.slicer";
 //quiz
 import GetQuizList from "./modules/admin/quiz/getQuizList.slicer";
+import GetQuiz from "./modules/quiz/quizGet.slicer";
 import UpdateQuizList from "./modules/admin/quiz/updateQuizList.slicer";
 import CreateQuizList from "./modules/admin/quiz/createQuizList.slicer";
 import DeleteQuizList from "./modules/admin/quiz/deleteQuizList.slicer";
 //pip
 import UpdatePipMuliple from "./modules/admin/pip/updatePipList.slicer";
+//journal
+import GetJournalList from "./modules/journal/journalList.slicer";
+import DeleteJournal from "./modules/journal/journalDelete.slicer";
+import UpdateJournal from "./modules/journal/journalUpdate.slicer";
+import CreateJournal from "./modules/journal/journalCreate.slicer";
 
 const rootReducer = combineReducers({
   LoginReducer,
@@ -32,8 +39,10 @@ const rootReducer = combineReducers({
   UpdateCourse,
   DeleteCourse,
   CreateCourse,
+  GetCourse,
   //quiz
   GetQuizList,
+  GetQuiz,
   UpdateQuizList,
   CreateQuizList,
   DeleteQuizList,
@@ -44,5 +53,10 @@ const rootReducer = combineReducers({
   updateAdminUserReducer,
   //pip
   UpdatePipMuliple,
+  //Journal
+  GetJournalList,
+  DeleteJournal,
+  UpdateJournal,
+  CreateJournal,
 });
 export default rootReducer;

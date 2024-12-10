@@ -25,7 +25,7 @@ export default function Quiz() {
   const [isUpdate, setIsUpdate] = useState(false);
   const [form] = useForm();
   const [pageNum, setPageNum] = useState(1);
-  const { getQuizloading, quiz, total } = useAppSelector(
+  const { getQuizloading, total } = useAppSelector(
     (state) => state.GetQuizList
   );
   const { loadingUserCreateAdmin } = useAppSelector(
@@ -123,7 +123,7 @@ export default function Quiz() {
         }
       />
       <Table
-        dataSource={quiz}
+        // dataSource={quiz}
         columns={columns}
         loading={getQuizloading}
         rowKey={(record: any) => record?.id}

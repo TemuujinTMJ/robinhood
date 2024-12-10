@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { GetCourseList } from "./getCourseList.service";
 import {Course} from "@/types/types"
+import { message } from "antd";
 
 interface CourseState {
   loading: boolean;
@@ -25,9 +26,12 @@ const adminCourseList = createSlice({
 
     builder.addCase(GetCourseList.fulfilled, (state, action: PayloadAction<any>) => {
       state.loading = false;
-      console.log(action.payload)
-      state.courses = action.payload.courses
+      if(action.payload.success) {
+        state.courses = action.payload.courses
       state.total = action.payload.total_count
+      } else {
+        void message.error(action.payload.response)
+      }
     });
 
     builder.addCase(GetCourseList.rejected, (state) => {

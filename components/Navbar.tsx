@@ -17,7 +17,6 @@ export default function Navbar() {
 
   const path = usePathname();
   const links = [
-    { href: "/forex", label: "Forex гэж юу вэ?" },
     {
       href: user ? "/profile" : "/login",
       label: user ? user.email : "Нэвтрэх / Бүртгүүлэх",
@@ -25,14 +24,17 @@ export default function Navbar() {
   ];
   if (user) {
     links.unshift(
+      { href: "/journal", label: "Арилжааны тэмдэглэл" },
       { href: "/pip-calculator", label: "LOT Size тооцоолуур" },
       { href: "/psychology-test", label: "Сэтгэлзүйн тест" },
       { href: "/courses", label: "Хичээлүүд" }
     );
-  
+
     if (user.role === 1) {
       links.unshift({ href: "/admin", label: "Dashboard" });
     }
+  } else {
+    links.unshift({ href: "/forex", label: "Forex гэж юу вэ?" });
   }
   const toggleDrawer = () => {
     setIsDrawerOpen((prev) => !prev);

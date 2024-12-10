@@ -3,7 +3,8 @@ const nextConfig = {
     images: {
         domains: [
           "www.milesweb.in",
-          "img-c.udemycdn.com"
+          "img-c.udemycdn.com",
+          "t4.ftcdn.net"
         ],
       },
 };
