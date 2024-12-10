@@ -22,7 +22,7 @@ const userJournalDelete = createSlice({
       if (action.payload.success) {
         void message.success("Journal successfully deleted!!");
       } else {
-        void message.error(action.payload.error);
+        void message.error(action.payload.response);
       }
     });
 

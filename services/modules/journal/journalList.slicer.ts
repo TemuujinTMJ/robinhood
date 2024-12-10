@@ -5,7 +5,8 @@ import { message } from "antd";
 
 const initialState = {
   journalListloading: false,
-  journal: []
+  journal: [],
+  total: 0
 };
 
 const userJournalList = createSlice({
@@ -21,9 +22,10 @@ const userJournalList = createSlice({
       state.journalListloading = false;
 
       if (action.payload.success) {
-        state.journal = action.payload
+        state.journal = action.payload.journals
+        state.total = action.payload.total_count
       } else {
-        void message.error(action.payload.error);
+        void message.error(action.payload.response);
       }
     });
 

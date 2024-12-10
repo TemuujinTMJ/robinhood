@@ -17,7 +17,7 @@ export default function SignUpForm() {
   });
   const dispatch = useAppDispatch();
   const { loading } = useAppSelector((state) => state.SignUpReducer);
-  const router = useRouter()
+  const router = useRouter();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -28,20 +28,20 @@ export default function SignUpForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-  
+
     if (formData.password !== formData.confirmPassword) {
       message.error("Нууц үг таарахгүй байна!");
       return;
+    } else {
+      dispatch(SignUp(formData)).then((e) => {
+        if (e.payload.success) {
+          message.success("Амжилттай бүртгэгдлээ!");
+          router.replace("/login");
+        } else {
+          message.error(e.payload.response);
+        }
+      });
     }
-  
-    dispatch(SignUp(formData)).then((e) => {
-      if (e.payload.success) {
-        message.success("Амжилттай бүртгэгдлээ!");
-        router.replace("/login");
-      } else {
-        message.error(e.payload.response);
-      }
-    });
   };
 
   return (

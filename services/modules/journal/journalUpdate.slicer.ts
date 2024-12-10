@@ -20,9 +20,10 @@ const userJournalUpdate = createSlice({
       state.journalUpdateloading = false;
 
       if (action.payload.success) {
-        void message.success("Journal successfully updated!!");
+        message.success("Тэмдэглэл амжилттай шинэчлэгдлээ!");
+
       } else {
-        void message.error(action.payload.error);
+        void message.error(action.payload.response);
       }
     });
 

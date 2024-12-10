@@ -20,9 +20,10 @@ const userJournalCreate = createSlice({
       state.journalCreateloading = false;
 
       if (action.payload.success) {
-        void message.success("Journal successfully created!!");
+        message.success("Тэмдэглэл амжилттай нэмэгдлээ!");
+
       } else {
-        void message.error(action.payload.error);
+        void message.error(action.payload.response);
       }
     });
 

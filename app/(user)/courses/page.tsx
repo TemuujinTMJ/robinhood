@@ -5,12 +5,14 @@ import Container from "@/components/container";
 import { useAppDispatch, useAppSelector } from "@/services/hooks";
 import { GetCourseList } from "@/services/modules/admin/course/getCourseList.service";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const Courses = () => {
   const dispatch = useAppDispatch();
   const { courses, loading } = useAppSelector((state) => state.GetCourseList);
+  const router = useRouter()
   useEffect(() => {
-      dispatch(GetCourseList({ page_size: 10, page_number: 1 }));
+    dispatch(GetCourseList({ page_size: 10, page_number: 1 }));
   }, [dispatch]);
   return (
     <>
@@ -45,10 +47,11 @@ const Courses = () => {
                     <p>{course.description}</p>
                   </div>
                   <button
-                    disabled
-                    className="bg-gray-600 text-white py-2 px-4 rounded  transition duration-300 mt-4"
+                    disabled={!course.is_visible}
+                    className={`${!!course.is_visible ? 'bg-green-600' : 'bg-gray-600'} text-white py-2 px-4 rounded  transition duration-300 mt-4`}
+                    onClick={() => router.push(`/courses/${course.id}`)}
                   >
-                    Тун удахгүй
+                    {!!course.is_visible ? "Хичээл үзэх" : "Тун удахгүй"}
                   </button>
                 </div>
               ))}

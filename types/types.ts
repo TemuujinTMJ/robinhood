@@ -11,13 +11,24 @@ export interface User {
   trading_account: number;
   xp: number;
 }
+
+export interface Lesson {
+  id: number;
+  course_id: number;
+  title: string;
+  description: string;
+  link: string;
+  created_at: string;
+  updated_at: string;
+  exams: [];
+}
 export interface Course {
   course_type: number;
   created_at: string;
   description: string;
   id: number;
   is_visible: number;
-  lessons: [];
+  lessons: Lesson[];
   name: string;
   thumbnail_path: string;
   updated_at: string;

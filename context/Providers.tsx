@@ -2,7 +2,7 @@
 
 import { Provider } from "react-redux";
 import { store } from "@/services/store";
-import { App, ConfigProvider, message, theme } from "antd";
+import { ConfigProvider, message, theme } from "antd";
 import AntdProvider from "./AntdProvider";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
@@ -19,7 +19,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
               algorithm: theme.darkAlgorithm,
             }}
           >
-            <App>{children}</App>
+            {children}
           </ConfigProvider>
         </AntdProvider>
       </Provider>

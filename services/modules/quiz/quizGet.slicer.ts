@@ -27,7 +27,7 @@ const GetQuiz = createSlice({
       if (action.payload.success) {
         state.quiz = action.payload.quiz;
       } else {
-        void message.error(action.payload.error);
+        void message.error(action.payload.response);
       }
     });
 

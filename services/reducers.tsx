@@ -14,6 +14,7 @@ import GetCourseList from "./modules/admin/course/getCourseList.slicer";
 import UpdateCourse from "./modules/admin/course/updateCourse.slicer";
 import DeleteCourse from "./modules/admin/course/deleteCourse.slicer";
 import CreateCourse from "./modules/admin/course/createCourse.slicer";
+import GetCourse from "./modules/course/courseGet.slicer";
 //quiz
 import GetQuizList from "./modules/admin/quiz/getQuizList.slicer";
 import GetQuiz from "./modules/quiz/quizGet.slicer";
@@ -38,6 +39,7 @@ const rootReducer = combineReducers({
   UpdateCourse,
   DeleteCourse,
   CreateCourse,
+  GetCourse,
   //quiz
   GetQuizList,
   GetQuiz,
