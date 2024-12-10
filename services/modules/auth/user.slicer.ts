@@ -29,7 +29,7 @@ const userSlice = createSlice({
           state.user = action.payload;
         } else {
           Cookies.remove("token");
-          message.error("Session Expired!!")
+          void message.error("Session Expired!!")
         }
       })
       .addCase(fetchUser.rejected, (state) => {

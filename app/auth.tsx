@@ -16,15 +16,16 @@ export default function Auth ({ children }: {
   const { loadingUser, user } = useAppSelector((state) => state.FetchUser);
 
   useEffect(() => {
-     if (token && user === null) {
+    console.log('jh')
+     if (!token || user === null) {
       dispatch(fetchUser()).then(() => {
         if(pathname === '/login') {
           router.replace(`/`);
         }
       });
     }
-  });
+  }, [dispatch]);
 
-  if (loadingUser) return <></>;
+  if (loadingUser) return <>loading...</>;
   return <>{children}</>;
 }
