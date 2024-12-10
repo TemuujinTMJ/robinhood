@@ -1,6 +1,4 @@
 "use client";
-import Trash from "@/public/Red Trash Icon.png";
-import Edit from "@/public/edit.png";
 import { useAppDispatch, useAppSelector } from "@/services/hooks";
 import { JournalCreate } from "@/services/modules/journal/journalCreate.service";
 import { JournalDelete } from "@/services/modules/journal/journalDelete.service";
@@ -18,7 +16,6 @@ import {
 } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import dayjs from "dayjs";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function Journal() {
@@ -199,7 +196,7 @@ export default function Journal() {
       title: "Action",
       dataIndex: "Action",
       key: "Action",
-      width: 100,
+      width: 180,
       fixed: "right",
       render: (_: any, record: any) => (
         <div className="flex flex-nowrap gap-2">
@@ -212,8 +209,9 @@ export default function Journal() {
               })
             }
             loading={journalDeleteloading}
+            danger
           >
-            <Image src={Trash} width={24} height={24} alt="edit" />
+            Устгах
           </Button>
           <Button
             onClick={() => [
@@ -226,7 +224,7 @@ export default function Journal() {
               handleDrawerOpen(),
             ]}
           >
-            <Image src={Edit} width={24} height={24} alt="edit" />
+            Засах
           </Button>
         </div>
       ),
