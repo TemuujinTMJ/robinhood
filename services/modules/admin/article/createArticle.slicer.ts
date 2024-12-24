@@ -3,11 +3,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CreateAdminArticle } from "./createArticle.service";
 import { message } from "antd";
 
-interface QuizState {
+interface ArticleState {
   createArticleloading: boolean;
 }
 
-const initialState: QuizState = {
+const initialState: ArticleState = {
   createArticleloading: false,
 };
 

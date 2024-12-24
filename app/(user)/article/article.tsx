@@ -3,7 +3,6 @@
 import Container from "@/components/container";
 import { useAppDispatch, useAppSelector } from "@/services/hooks";
 import { GetAdminArticleList } from "@/services/modules/admin/article/getArticleList.service";
-import { Article } from "@/types/types";
 import { Spin } from "antd";
 import dayjs from "dayjs";
 import Image from "next/image";
@@ -11,42 +10,36 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
-export default function ArticlePage() {
+export default function ArticlesPage() {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const { total, getArticleListLoading } = useAppSelector(
+  const { total, getArticleListLoading, articles } = useAppSelector(
     (state) => state.GetArticleList
   );
 
-  const [data, setData] = useState<Article[] | []>([]);
   const [pageNumber, setPageNumber] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(articles.length === 0);
   const [ref, inView] = useInView();
 
-  const fetchArticles = async () => {
-    if (getArticleListLoading || !hasMore) return;
-    dispatch(
-      await GetAdminArticleList({ page_size: 1, page_number: pageNumber })
-    ).then((response) => {
-      const newArticles = response.payload?.articles || [];
-      setData((prevData) => [...prevData, ...newArticles]);
-      setPageNumber((prevPage) => prevPage + 1);
-    });
-    console.log(data.length, total, hasMore);
-    if (data.length === total) {
-      setHasMore(false);
-    }
-  };
   useEffect(() => {
+    if (getArticleListLoading || !hasMore) return;
+
     if (inView) {
-      fetchArticles();
+      dispatch(
+        GetAdminArticleList({ page_size: 1, page_number: pageNumber })
+      ).then(() => {
+        setPageNumber((prevPage) => prevPage + 1);
+      });
+      if (articles.length === total) {
+        setHasMore(false);
+      }
     }
   }, [inView, pageNumber]);
   return (
     <Container>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {data.length > 0 &&
-          data.map((e) => {
+        {articles.length > 0 &&
+          articles.map((e) => {
             return (
               <div
                 key={e?.id}
@@ -54,7 +47,7 @@ export default function ArticlePage() {
               >
                 <div>
                   <Image
-                    src="https://drive.usercontent.google.com/download?id=1q77RfWYhNUWy7920iUyw56rGrGPKRDeK&authuser=0"
+                    src={e.image_path}
                     width={600}
                     height={200}
                     alt="sdf"
@@ -66,7 +59,7 @@ export default function ArticlePage() {
                 </div>
                 <button
                   className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded mt-auto transition duration-300"
-                  onClick={() => router.push(`/psychology-test/${e.id}`)}
+                  onClick={() => router.push(`/article/${e.id}`)}
                 >
                   Read More
                 </button>

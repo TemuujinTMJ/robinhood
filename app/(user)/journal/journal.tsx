@@ -243,17 +243,20 @@ export default function Journal() {
               picker="month"
               placeholder="Сараар"
               value={monthPickerValue}
+              allowClear={false}
             />
             <DatePicker
               onChange={handlePickerChange("week")}
               picker="week"
               placeholder="7 хоногоор"
               value={weekPickerValue}
+              allowClear={false}
             />
             <DatePicker
               onChange={handlePickerChange("day")}
               placeholder="Өдрөөр"
               value={dayPickerValue}
+              allowClear={false}
             />
             <Button onClick={() => [handleDrawerOpen(), setIsCreate(false)]}>
               Тэмдэглэл нэмэх

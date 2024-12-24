@@ -33,6 +33,7 @@ import GetArticleList from "./modules/admin/article/getArticleList.slicer";
 import CreateArticle from "./modules/admin/article/createArticle.slicer";
 import UpadteArticle from "./modules/admin/article/updateArticle.slicer";
 import DeleteArticle from "./modules/admin/article/deleteArticle.slicer";
+import GetArticleSingle from "./modules/admin/article/getArticleSingle.slicer";
 
 
 const rootReducer = combineReducers({
@@ -68,6 +69,7 @@ const rootReducer = combineReducers({
   GetArticleList,
   CreateArticle,
   UpadteArticle,
-  DeleteArticle
+  DeleteArticle,
+  GetArticleSingle
 });
 export default rootReducer;

@@ -5,6 +5,8 @@ import { GetCourse } from "@/services/modules/course/courseGet.service";
 import { Lesson } from "@/types/types";
 import { Button } from "antd";
 import React, { useEffect, useState } from "react";
+import Logo from "@/public/logoAcademy.jpg";
+import Image from "next/image";
 
 export default function Course({ params }: { params: { id: number } }) {
   const dispatch = useAppDispatch();
@@ -19,7 +21,9 @@ export default function Course({ params }: { params: { id: number } }) {
       }
     });
   }, []);
+
   if (loadingCourseGet) return <>loading..</>;
+
   return (
     <Container>
       <div className="grid gap-8">
@@ -45,14 +49,21 @@ export default function Course({ params }: { params: { id: number } }) {
 
           {/* Main Content */}
           <div className="flex-1">
-            <div className="responsive-iframe">
+            <div className="responsive-iframe relative">
               <iframe
-                src="https://drive.google.com/file/d/1L8IwXeLa-IPp251SYB5wA9BSIhW2weXM/preview"
+                src={selectedCoure?.link}
                 width="640"
                 height="480"
                 allow="autoplay"
                 allowFullScreen
-              ></iframe>
+              />
+              <Image
+                src={Logo}
+                width={40}
+                height={40}
+                className="top-3 right-3 bg-black z-10000 absolute"
+                alt="img"
+              />
             </div>
           </div>
         </div>

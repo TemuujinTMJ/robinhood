@@ -19,22 +19,29 @@ body {
   background: var(--background);
   font-family: 'Play', sans-serif !important;
   .ndfHFb-c4YZDc-Wrql6b{
-    display: none;
+    display: none !important;
+    opacity: 0 !important;
   }
 }
-
-/* For Firefox */
-* {
-  scrollbar-width: none; /* Hide the scrollbar */
-  scrollbar-color: transparent transparent; /* Prevent flicker */
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
 }
 
-/* General overflow for scrolling */
-.container {
-  overflow: auto; /* or scroll */
+/* Track */
+::-webkit-scrollbar-track {
+  background: #00000010; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #00000050; 
 }
 
-
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #00000075; 
+}
 @layer utilities {
   .text-balance {
     text-wrap: balance;

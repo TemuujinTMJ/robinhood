@@ -16,12 +16,12 @@ const QuizComponent = () => {
 
   return (
     <Container>
-      <div className="flex items-center justify-center gap-16 flex-wrap">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-0 items-center justify-center">
         {!getQuizloading &&
           quiz?.map((e) => (
             <div
               key={e.id}
-              className="bg-glass backdrop-blur-md p-8 rounded-lg text-center shadow-lg hover:shadow-2xl transition duration-300 flex flex-col w-full max-w-[400px] justify-between"
+              className="bg-glass self-center justify-self-center h-full backdrop-blur-md p-8 rounded-lg text-center shadow-lg hover:shadow-2xl transition duration-300 flex flex-col w-full max-w-[400px] justify-between"
             >
               <div>
                 <Image

@@ -2,8 +2,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { GetAdminArticleList } from "./getArticleList.service";
 import { message } from "antd";
+import { Article } from "@/types/types";
 
-const initialState = {
+interface ArticleState {
+  getArticleListLoading: boolean;
+  articles: Article[];
+  total: number;
+}
+
+const initialState: ArticleState = {
   getArticleListLoading: false,
   articles: [],
   total: -1,
@@ -22,9 +29,9 @@ const ArticleList = createSlice({
       GetAdminArticleList.fulfilled,
       (state, action: PayloadAction<any>) => {
         state.getArticleListLoading = false;
-        if (action.payload.success) {
+        if (action.payload.success && state.articles.length !== action.payload.total) {
           state.total = action.payload.total_count;
-          state.articles = action.payload.articles
+          state.articles = [...state.articles, ...action.payload.articles]
         } else {
           void message.error(action.payload.response);
         }
