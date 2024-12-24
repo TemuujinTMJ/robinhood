@@ -74,3 +74,13 @@ export interface Quiz {
   questions: Question[];
   results: Result[];
 }
+
+export interface Article {
+  id: number;
+  title: string;
+  description: string;
+  user_id: number;
+  image_path: string;
+  created_at: string;
+  updated_at: string;
+};

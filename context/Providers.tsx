@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { store } from "@/services/store";
 import { ConfigProvider, message, theme } from "antd";
 import AntdProvider from "./AntdProvider";
+import Snowfall from "react-snowfall";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -11,6 +12,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <>
+      <Snowfall style={{zIndex: 100000, position: 'fixed', top:0}} />
       <Provider store={store}>
         {contextHolder}
         <AntdProvider>

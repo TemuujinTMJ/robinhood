@@ -18,9 +18,9 @@ const QuizComponent = () => {
     <Container>
       <div className="flex items-center justify-center gap-16 flex-wrap">
         {!getQuizloading &&
-          quiz?.map((e, index) => (
+          quiz?.map((e) => (
             <div
-              key={index}
+              key={e.id}
               className="bg-glass backdrop-blur-md p-8 rounded-lg text-center shadow-lg hover:shadow-2xl transition duration-300 flex flex-col w-full max-w-[400px] justify-between"
             >
               <div>

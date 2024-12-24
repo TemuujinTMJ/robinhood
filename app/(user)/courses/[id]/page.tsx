@@ -47,11 +47,10 @@ export default function Course({ params }: { params: { id: number } }) {
           <div className="flex-1">
             <div className="responsive-iframe">
               <iframe
-                src="https://www.youtube.com/embed/kv1NdWQByRQ?si=bWM2De3eJVImfb_t"
-                title="YouTube video player"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
+                src="https://drive.google.com/file/d/1L8IwXeLa-IPp251SYB5wA9BSIhW2weXM/preview"
+                width="640"
+                height="480"
+                allow="autoplay"
                 allowFullScreen
               ></iframe>
             </div>

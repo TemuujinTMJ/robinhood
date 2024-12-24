@@ -24,6 +24,7 @@ export default function Navbar() {
   ];
   if (user) {
     links.unshift(
+      // { href: "/article", label: "Forex Мэдээ" },
       { href: "/journal", label: "Арилжааны тэмдэглэл" },
       { href: "/pip-calculator", label: "LOT Size тооцоолуур" },
       { href: "/psychology-test", label: "Сэтгэлзүйн тест" },

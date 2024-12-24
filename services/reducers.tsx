@@ -28,6 +28,12 @@ import GetJournalList from "./modules/journal/journalList.slicer";
 import DeleteJournal from "./modules/journal/journalDelete.slicer";
 import UpdateJournal from "./modules/journal/journalUpdate.slicer";
 import CreateJournal from "./modules/journal/journalCreate.slicer";
+//article
+import GetArticleList from "./modules/admin/article/getArticleList.slicer";
+import CreateArticle from "./modules/admin/article/createArticle.slicer";
+import UpadteArticle from "./modules/admin/article/updateArticle.slicer";
+import DeleteArticle from "./modules/admin/article/deleteArticle.slicer";
+
 
 const rootReducer = combineReducers({
   LoginReducer,
@@ -58,5 +64,10 @@ const rootReducer = combineReducers({
   DeleteJournal,
   UpdateJournal,
   CreateJournal,
+  //Article
+  GetArticleList,
+  CreateArticle,
+  UpadteArticle,
+  DeleteArticle
 });
 export default rootReducer;

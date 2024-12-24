@@ -22,8 +22,8 @@ export default async function RootLayout({
         <title>Robinhood Club</title>
       </head>
       <body className="bg-gray-900 text-white min-h-screen">
-        <div className={play.className}>
-          <Providers>
+        <Providers>
+          <div className={play.className}>
             <Auth>
               <div className="min-h-screen flex flex-col justify-between">
                 <Navbar />
@@ -31,8 +31,8 @@ export default async function RootLayout({
                 <Footer />
               </div>
             </Auth>
-          </Providers>
-        </div>
+          </div>
+        </Providers>
       </body>
     </html>
   );
