@@ -1,26 +1,34 @@
 import Container from "./container";
-
+import QuizImage from "@/public/Home Icons/Асуулга-01.png";
+import SignalImage from "@/public/Home Icons/Live-01.png";
+import AnalyzeImage from "@/public/Home Icons/Analyse-01.png";
+import HubImage from "@/public/Home Icons/Ehub-01.png";
+import Image from "next/image";
 const Features = () => {
   const cards = [
     {
       title: "Асуулга",
       description:
         "Хүн бүрийн сэтгэлзүйн онцлогт тохирсон хариуг 5 минутын дотор!",
+      image: QuizImage,
     },
     {
       title: "Live сигнал",
       description:
         "10-н жилийн цор ганц арилжааны данс өсгөх газраас голлосон сигналууд",
+      image: SignalImage,
     },
     {
       title: "Зах зээлийн шинжилгээ",
       description:
         "+90% магадлалтай зах зээлийн тойм шинжилгээг хамгийн түрүүнд",
+      image: AnalyzeImage,
     },
     {
       title: "eHub",
       description: "Монголын хамгийн анхны арилжаачдын цахим хаб",
       isHighlighted: true,
+      image: HubImage,
     },
   ];
 
@@ -43,7 +51,7 @@ const Features = () => {
               </h3>
               <p className="text-gray-300 text-sm mb-6">{card.description}</p>
               <div className="h-40 bg-[#1A2438] rounded-md flex items-center justify-center">
-                <p className="text-gray-400">Танилцуулга хичээл зураг орно</p>
+                <Image src={card.image} width={200} height={100} alt="image" />
               </div>
             </div>
           ))}

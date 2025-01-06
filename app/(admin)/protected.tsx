@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useAppSelector } from "@/services/hooks";
 import { useRouter } from "next/navigation";
+import { Spin } from "antd";
 
 export default function Protected({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -15,8 +16,11 @@ export default function Protected({ children }: { children: React.ReactNode }) {
   }, [loadingUser, user, router]);
 
   if (loadingUser) {
-    // Optionally, show a loading state
-    return <div>Loading...</div>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center">
+        <Spin />
+      </div>
+    );
   }
 
   if (!user) {

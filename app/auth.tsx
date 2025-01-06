@@ -1,31 +1,34 @@
-'use client'
-import { useEffect } from 'react';
-import Cookies from 'js-cookie';
+"use client";
+import { useEffect } from "react";
+import Cookies from "js-cookie";
 
-import { useAppDispatch, useAppSelector } from '@/services/hooks';
-import { fetchUser } from '@/services/modules/auth/user.service';
-import { usePathname, useRouter } from 'next/navigation';
+import { useAppDispatch, useAppSelector } from "@/services/hooks";
+import { fetchUser } from "@/services/modules/auth/user.service";
+import { usePathname, useRouter } from "next/navigation";
+import { Spin } from "antd";
 
-export default function Auth ({ children }: {
-  children: React.ReactNode;
-}) {
-  const token = Cookies.get('token');
+export default function Auth({ children }: { children: React.ReactNode }) {
+  const token = Cookies.get("token");
   const router = useRouter();
-  const pathname = usePathname()
+  const pathname = usePathname();
   const dispatch = useAppDispatch();
   const { loadingUser, user } = useAppSelector((state) => state.FetchUser);
 
   useEffect(() => {
-    console.log('jh')
-     if (!token || user === null) {
+    if (!token || user === null) {
       dispatch(fetchUser()).then(() => {
-        if(pathname === '/login') {
+        if (pathname === "/login") {
           router.replace(`/`);
         }
       });
     }
   }, [dispatch]);
 
-  if (loadingUser) return <>loading...</>;
+  if (loadingUser)
+    return (
+      <div className="w-screen h-screen flex justify-center items-center">
+        <Spin />
+      </div>
+    );
   return <>{children}</>;
 }

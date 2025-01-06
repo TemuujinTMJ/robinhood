@@ -4,8 +4,9 @@ import { useAppDispatch, useAppSelector } from "@/services/hooks";
 import { AddAdminUser } from "@/services/modules/admin/user/addUser.service";
 import { GetAdminUserList } from "@/services/modules/admin/user/getUserList.service";
 import { UpdateAdminUser } from "@/services/modules/admin/user/updateUser.service";
+import { Role } from "@/types/constants";
 import { User } from "@/types/types";
-import { Button, Drawer, Form, Input, message, Table } from "antd";
+import { Button, Drawer, Form, Input, message, Select, Table, Tag } from "antd";
 import { useForm } from "antd/es/form/Form";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
@@ -54,7 +55,7 @@ export default function Users() {
       key: "No",
       title: "No",
       dataIndex: "id",
-      width: 50,
+      width: 60,
       render: (item: unknown, record: unknown, index: number) => (
         <div>{index + 1}</div>
       ),
@@ -88,6 +89,11 @@ export default function Users() {
       key: "role",
       title: "Role",
       dataIndex: "role",
+      render: (role: number) => (
+        <Tag color={role === 1 ? "green" : "default"}>
+          {Role.find((e) => e.value === role)?.label}
+        </Tag>
+      ),
     },
     {
       key: "status",
@@ -98,6 +104,7 @@ export default function Users() {
       key: "subscription_type",
       title: "Subscription Type",
       dataIndex: "subscription_type",
+      width: 160
     },
     {
       key: "trading_account",
@@ -152,7 +159,13 @@ export default function Users() {
         columns={columns}
         loading={loadingUsers}
         rowKey={(record) => record?.id}
-        pagination={{ current: pageNum, onChange: (e) => setPageNum(e), total, pageSize: 10 }}
+        scroll={{ x: 'max-content' }}
+        pagination={{
+          current: pageNum,
+          onChange: (e) => setPageNum(e),
+          total,
+          pageSize: 10,
+        }}
       />
       <Drawer open={isOpen} onClose={() => setIsOpen(false)}>
         <Form
@@ -182,7 +195,7 @@ export default function Users() {
           {isUpdate && (
             <div>
               <Form.Item name="role" label="Role">
-                <Input />
+                <Select options={Role} />
               </Form.Item>
               <Form.Item name="status" label="Status">
                 <Input />
@@ -200,6 +213,7 @@ export default function Users() {
             </div>
           )}
           <Button
+            className="fixed right-5 top-3"
             htmlType="submit"
             loading={loadingUserCreateAdmin || loadingUpdateUsers}
           >

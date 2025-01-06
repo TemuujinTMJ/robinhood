@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 
 const Courses = () => {
   const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.FetchUser);
   const { courses, loading } = useAppSelector((state) => state.GetCourseList);
   const router = useRouter()
   useEffect(() => {
@@ -44,10 +45,10 @@ const Courses = () => {
                     <h3 className="text-xl font-semibold mb-4">
                       {course.name}
                     </h3>
-                    <p>{course.description}</p>
+                    <p className="text-xs">{course.description}</p>
                   </div>
                   <button
-                    disabled={!course.is_visible}
+                    disabled={!course.is_visible || user?.role === 0}
                     className={`${!!course.is_visible ? 'bg-green-600' : 'bg-gray-600'} text-white py-2 px-4 rounded  transition duration-300 mt-4`}
                     onClick={() => router.push(`/courses/${course.id}`)}
                   >

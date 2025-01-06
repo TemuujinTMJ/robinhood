@@ -175,6 +175,7 @@ export default function Article() {
           </Form.Item>
 
           <Button
+            className="fixed right-5 top-3"
             htmlType="submit"
             loading={createArticleloading || udpateQuizloading}
           >

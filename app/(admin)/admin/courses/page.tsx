@@ -440,7 +440,7 @@ export default function Courses() {
           </Form.List>
           <Form.Item name="id" />
           <Button
-            className="mt-2"
+            className="fixed right-5 top-3"
             htmlType="submit"
             loading={loadingCreate || loadingUpdate}
           >
