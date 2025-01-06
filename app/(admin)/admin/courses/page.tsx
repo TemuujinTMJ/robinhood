@@ -36,29 +36,35 @@ export default function Courses() {
   useEffect(() => {
     dispatch(GetCourseList({ page_size: 8, page_number: pageNum }));
   }, [pageNum, dispatch]);
-  const onFinish = (values: any) => {
-    if (isUpdate) {
-      dispatch(UpdateCourse(values)).then((e) => {
-        if (e.payload.success) {
-          message.success(e.payload.response);
-          setIsOpen(false);
-          dispatch(GetCourseList({ page_size: 8, page_number: pageNum }));
-        } else {
-          message.error(e.payload.response);
-        }
-      });
-    } else {
-      dispatch(CreateCourse(values)).then((e) => {
-        if (e.payload.success) {
-          message.success(e.payload.response);
-          setIsOpen(false);
-          dispatch(GetCourseList({ page_size: 8, page_number: pageNum }));
-        } else {
-          message.error(e.payload.response);
-        }
-      });
+  const onFinish = async () => {
+    try {
+      const values = await form.validateFields();
+      if (isUpdate) {
+        dispatch(UpdateCourse(values)).then((e) => {
+          if (e.payload.success) {
+            message.success(e.payload.response);
+            setIsOpen(false);
+            dispatch(GetCourseList({ page_size: 8, page_number: pageNum }));
+          } else {
+            message.error(e.payload.response);
+          }
+        });
+      } else {
+        dispatch(CreateCourse(values)).then((e) => {
+          if (e.payload.success) {
+            message.success(e.payload.response);
+            setIsOpen(false);
+            dispatch(GetCourseList({ page_size: 8, page_number: pageNum }));
+          } else {
+            message.error(e.payload.response);
+          }
+        });
+      }
+    } catch (error) {
+      console.log("Validation Failed:", error);
     }
   };
+
   const columns = [
     {
       key: "No",
@@ -169,7 +175,16 @@ export default function Courses() {
           pageSize: 10,
         }}
       />
-      <Drawer open={isOpen} onClose={() => setIsOpen(false)} width={650}>
+      <Drawer
+        open={isOpen}
+        onClose={() => setIsOpen(false)}
+        width={650}
+        extra={
+          <Button onClick={onFinish} loading={loadingCreate || loadingUpdate}>
+            Save
+          </Button>
+        }
+      >
         <Form
           layout="vertical"
           labelCol={{ span: 6 }}
@@ -178,7 +193,6 @@ export default function Courses() {
           style={{ maxWidth: 600 }}
           autoComplete="off"
           initialValues={{ items: [{}] }}
-          onFinish={onFinish}
         >
           <Form.Item
             label="Course Name"
@@ -214,7 +228,7 @@ export default function Courses() {
             <Input />
           </Form.Item>
           <div className="flex justify-center">
-          <Image src={imageLink || ""} width={400} alt="image" height={100} />
+            <Image src={imageLink || ""} width={400} alt="image" height={100} />
           </div>
           <Form.Item
             label="Status"
@@ -439,13 +453,6 @@ export default function Courses() {
             )}
           </Form.List>
           <Form.Item name="id" />
-          <Button
-            className="fixed right-5 top-3"
-            htmlType="submit"
-            loading={loadingCreate || loadingUpdate}
-          >
-            Save
-          </Button>
         </Form>
       </Drawer>
     </div>

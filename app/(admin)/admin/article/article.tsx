@@ -20,7 +20,7 @@ export default function Article() {
   const [form] = useForm();
   const [pageNum, setPageNum] = useState(1);
   const { getArticleListLoading, total, articles } = useAppSelector(
-    (state) => state.GetArticleList
+    (state) => state.GetAdminArticleList
   );
   const { createArticleloading } = useAppSelector(
     (state) => state.CreateArticle
@@ -32,7 +32,8 @@ export default function Article() {
   useEffect(() => {
     dispatch(GetAdminArticleList({ page_size: 10, page_number: pageNum }));
   }, [pageNum, dispatch]);
-  const onFinish = (values: any) => {
+  const onFinish = () => {
+    const values = form.getFieldsValue()
     if (isUpdate) {
       dispatch(UpdateAdminArticle(values)).then((e) => {
         if (!e.payload.success) {
@@ -148,7 +149,19 @@ export default function Article() {
           pageSize: 10,
         }}
       />
-      <Drawer open={isOpen} onClose={() => setIsOpen(false)} width={650}>
+      <Drawer
+        open={isOpen}
+        onClose={() => setIsOpen(false)}
+        width={650}
+        extra={
+          <Button
+            onClick={onFinish}
+            loading={createArticleloading || udpateQuizloading}
+          >
+            Save
+          </Button>
+        }
+      >
         <Form
           labelCol={{ span: 6 }}
           wrapperCol={{ span: 18 }}
@@ -157,7 +170,6 @@ export default function Article() {
           style={{ maxWidth: 600 }}
           autoComplete="off"
           initialValues={{ items: [{}] }}
-          onFinish={onFinish}
         >
           {isUpdate && <Form.Item name="id" hidden />}
           <Form.Item label="Title" name="title">
@@ -173,14 +185,6 @@ export default function Article() {
           <Form.Item label="Description" name="description">
             <ReactQuill />
           </Form.Item>
-
-          <Button
-            className="fixed right-5 top-3"
-            htmlType="submit"
-            loading={createArticleloading || udpateQuizloading}
-          >
-            Save
-          </Button>
         </Form>
       </Drawer>
     </div>

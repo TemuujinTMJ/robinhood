@@ -1,8 +1,8 @@
 "use client";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { GetAdminArticleList } from "./getArticleList.service";
 import { message } from "antd";
 import { Article } from "@/types/types";
+import { GetUserArticleList } from "./getArticleList.service";
 
 interface ArticleState {
   getArticleListLoading: boolean;
@@ -21,24 +21,27 @@ const ArticleList = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(GetAdminArticleList.pending, (state) => {
+    builder.addCase(GetUserArticleList.pending, (state) => {
       state.getArticleListLoading = true;
     });
 
     builder.addCase(
-      GetAdminArticleList.fulfilled,
+      GetUserArticleList.fulfilled,
       (state, action: PayloadAction<any>) => {
         state.getArticleListLoading = false;
-        if (action.payload.success && state.articles.length !== action.payload.total) {
+        if (
+          action.payload.success &&
+          state.articles.length !== action.payload.total
+        ) {
           state.total = action.payload.total_count;
-          state.articles = action.payload.articles
+          state.articles = [...state.articles, ...action.payload.articles];
         } else {
           void message.error(action.payload.response);
         }
       }
     );
 
-    builder.addCase(GetAdminArticleList.rejected, (state) => {
+    builder.addCase(GetUserArticleList.rejected, (state) => {
       state.getArticleListLoading = false;
     });
   },

@@ -38,27 +38,32 @@ export default function Quiz() {
   useEffect(() => {
     dispatch(GetAdminQuizList({ page_size: 10, page_number: pageNum }));
   }, [pageNum, dispatch]);
-  const onFinish = (values: any) => {
-    if (isUpdate) {
-      dispatch(UpdateAdminQuizList(values)).then((e) => {
-        if (e.payload.success) {
-          message.success(e.payload.response);
-          setIsOpen(false);
-          dispatch(GetAdminQuizList({ page_size: 8, page_number: pageNum }));
-        } else {
-          message.error(e.payload.response);
-        }
-      });
-    } else {
-      dispatch(CreateAdminQuizList(values)).then((e) => {
-        if (e.payload.success) {
-          message.success(e.payload.response);
-          setIsOpen(false);
-          dispatch(GetAdminQuizList({ page_size: 8, page_number: pageNum }));
-        } else {
-          message.error(e.payload.response);
-        }
-      });
+  const onFinish = async () => {
+    try {
+      const values = await form.validateFields();
+      if (isUpdate) {
+        dispatch(UpdateAdminQuizList(values)).then((e) => {
+          if (e.payload.success) {
+            message.success(e.payload.response);
+            setIsOpen(false);
+            dispatch(GetAdminQuizList({ page_size: 8, page_number: pageNum }));
+          } else {
+            message.error(e.payload.response);
+          }
+        });
+      } else {
+        dispatch(CreateAdminQuizList(values)).then((e) => {
+          if (e.payload.success) {
+            message.success(e.payload.response);
+            setIsOpen(false);
+            dispatch(GetAdminQuizList({ page_size: 8, page_number: pageNum }));
+          } else {
+            message.error(e.payload.response);
+          }
+        });
+      }
+    } catch (error) {
+      console.log("Validation Failed:", error);
     }
   };
   const columns = [
@@ -170,13 +175,24 @@ export default function Quiz() {
           pageSize: 10,
         }}
       />
-      <Drawer open={isOpen} onClose={() => setIsOpen(false)} width={650}>
+      <Drawer
+        open={isOpen}
+        onClose={() => setIsOpen(false)}
+        width={650}
+        extra={
+          <Button
+            onClick={onFinish}
+            loading={addQuizloading || udpateQuizloading}
+          >
+            Save
+          </Button>
+        }
+      >
         <Form
           form={form}
           name="dynamic_form_complex"
           autoComplete="off"
           initialValues={{ items: [{}], is_visible: 1, quiz_type: 0 }}
-          onFinish={onFinish}
           onFinishFailed={() =>
             message.error("Please complete the required fields!")
           }
@@ -217,7 +233,7 @@ export default function Quiz() {
             <Input />
           </Form.Item>
           <div className="flex justify-center">
-          <Image src={imageLink || ""} width={400} alt="image" height={100} />
+            <Image src={imageLink || ""} width={400} alt="image" height={100} />
           </div>
           <Form.Item
             label="Status"
@@ -432,14 +448,6 @@ export default function Quiz() {
               </div>
             )}
           </Form.List>
-
-          <Button
-            className="fixed right-5 top-3"
-            htmlType="submit"
-            loading={addQuizloading || udpateQuizloading}
-          >
-            Save
-          </Button>
         </Form>
       </Drawer>
     </div>

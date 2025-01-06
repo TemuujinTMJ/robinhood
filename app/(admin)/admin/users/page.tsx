@@ -29,7 +29,8 @@ export default function Users() {
   useEffect(() => {
     dispatch(GetAdminUserList({ page_size: 8, page_number: pageNum }));
   }, [pageNum, dispatch]);
-  const onFinish = (values: any) => {
+  const onFinish = async () => {
+    const values = await form.validateFields();
     if (isUpdate) {
       dispatch(UpdateAdminUser(values)).then((e) => {
         if (e.payload.success) {
@@ -104,7 +105,7 @@ export default function Users() {
       key: "subscription_type",
       title: "Subscription Type",
       dataIndex: "subscription_type",
-      width: 160
+      width: 160,
     },
     {
       key: "trading_account",
@@ -159,7 +160,7 @@ export default function Users() {
         columns={columns}
         loading={loadingUsers}
         rowKey={(record) => record?.id}
-        scroll={{ x: 'max-content' }}
+        scroll={{ x: "max-content" }}
         pagination={{
           current: pageNum,
           onChange: (e) => setPageNum(e),
@@ -167,10 +168,20 @@ export default function Users() {
           pageSize: 10,
         }}
       />
-      <Drawer open={isOpen} onClose={() => setIsOpen(false)}>
+      <Drawer
+        open={isOpen}
+        onClose={() => setIsOpen(false)}
+        extra={
+          <Button
+            onClick={onFinish}
+            loading={loadingUserCreateAdmin || loadingUpdateUsers}
+          >
+            Save
+          </Button>
+        }
+      >
         <Form
           layout="vertical"
-          onFinish={onFinish}
           form={form}
           disabled={loadingUserCreateAdmin || loadingUpdateUsers}
         >
@@ -212,13 +223,6 @@ export default function Users() {
               <Form.Item name="id" />
             </div>
           )}
-          <Button
-            className="fixed right-5 top-3"
-            htmlType="submit"
-            loading={loadingUserCreateAdmin || loadingUpdateUsers}
-          >
-            Save
-          </Button>
         </Form>
       </Drawer>
     </div>
